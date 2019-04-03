@@ -24,7 +24,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
-                android:resource="@xml/AppAuthStub" />
+                android:resource="@xml/appauthstub" />
         </service>
 
     </application>
