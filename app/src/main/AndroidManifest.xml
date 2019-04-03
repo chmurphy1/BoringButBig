@@ -27,6 +27,12 @@
                 android:resource="@xml/appauthstub" />
         </service>
 
+        <provider
+            android:name="com.christopherwmurphy.boringbutbigapp.SyncAdapter.ContentProvider.AppStubProvider"
+            android:authorities="com.example.android.datasync.provider"
+            android:exported="false"
+            android:syncable="true"/>
+
     </application>
 
 </manifest>
