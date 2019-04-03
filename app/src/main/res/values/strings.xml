@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">BoringButBigApp</string>
     <string name="domain_name">christopherwmurphy.com</string>
+    <string name="dummy_account">dummy</string>
 </resources>

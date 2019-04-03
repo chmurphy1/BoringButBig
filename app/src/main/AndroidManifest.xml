@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.christopherwmurphy.boringbutbigapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS"/>
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,9 +32,20 @@
                 android:resource="@xml/appauthstub" />
         </service>
 
+        <service
+            android:name="com.christopherwmurphy.boringbutbigapp.SyncAdapter.Service.DataAdapterService"
+            android:exported="true"
+            android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter"/>
+            </intent-filter>
+            <meta-data android:name="android.content.SyncAdapter"
+                android:resource="@xml/dataadapter" />
+        </service>
+
         <provider
             android:name="com.christopherwmurphy.boringbutbigapp.SyncAdapter.ContentProvider.AppStubProvider"
-            android:authorities="com.example.android.datasync.provider"
+            android:authorities="com.christopherwmurphy.boringbutbigapp.SyncAdapter.ContentProvider"
             android:exported="false"
             android:syncable="true"/>
 
