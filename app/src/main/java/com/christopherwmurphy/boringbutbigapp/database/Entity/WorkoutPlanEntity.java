@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.SET_NULL;
 
@@ -12,10 +13,6 @@ import static android.arch.persistence.room.ForeignKey.SET_NULL;
         foreignKeys = { @ForeignKey(entity = ExerciseEntity.class,
                                     parentColumns = "id",
                                     childColumns = "exercise_id",
-                                    onDelete = SET_NULL),
-                        @ForeignKey(entity = WorkoutEntity.class,
-                                    parentColumns = "workout_id",
-                                    childColumns = "workout_id",
                                     onDelete = SET_NULL),
                         @ForeignKey(entity = SetSchemeEntity.class,
                                     parentColumns = "set_id",
@@ -27,12 +24,15 @@ import static android.arch.persistence.room.ForeignKey.SET_NULL;
                    @Index("workout_id")})
 public class WorkoutPlanEntity {
 
+    @NonNull
     @ColumnInfo(name="week")
     private Integer week;
 
+    @NonNull
     @ColumnInfo(name="plan_id")
     private Integer planId;
 
+    @NonNull
     @ColumnInfo(name="seq_num")
     private Integer seqNum;
 
@@ -42,6 +42,7 @@ public class WorkoutPlanEntity {
     @ColumnInfo(name="set_id")
     private Integer setId;
 
+    @NonNull
     @ColumnInfo(name="workout_id")
     private Integer workoutId;
 

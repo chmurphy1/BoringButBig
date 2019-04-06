@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -14,12 +15,14 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
                                            childColumns = {"exercise_id", "language"},
                                            onDelete = CASCADE),
         indices = {@Index(value = {"exercise_id", "step_seq"}, unique = true),
-                   @Index(value = {"exercise_id", "lang"})})
+                   @Index(value = {"exercise_id", "language"})})
 public class ExerciseStepsEntity {
 
+    @NonNull
     @ColumnInfo(name = "exercise_id")
     private Integer exerciseId;
 
+    @NonNull
     @ColumnInfo(name = "step_seq")
     private Integer stepSeq;
 

@@ -15,7 +15,7 @@ import static android.arch.persistence.room.ForeignKey.SET_NULL;
                                            onDelete = SET_NULL),
         indices = {@Index(value = {"id"}, unique = true),
                    @Index("video_id"),
-                   @Index(value = {"id", "lang"})})
+                   @Index(value = {"id", "language"}, unique = true)})
 public class ExerciseEntity {
 
     @PrimaryKey

@@ -12,10 +12,16 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEnti
 import com.christopherwmurphy.boringbutbigapp.database.Entity.SetSchemeEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
+import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseStepsDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseVideosDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.SetSchemeDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
-                      WorkoutEntity.class, WorkoutPlanEntity.class}, version = 1)
+                      WorkoutEntity.class, WorkoutPlanEntity.class}, version = 1, exportSchema = false)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
 
@@ -31,4 +37,11 @@ public abstract class WorkoutDB extends RoomDatabase {
         }
         return dbInstance;
     }
+
+    public abstract ExerciseDao exerciseDao();
+    public abstract ExerciseStepsDao exerciseStepsDao();
+    public abstract ExerciseVideosDao exerciseVideosDao();
+    public abstract SetSchemeDao setSchemeDao();
+    public abstract WorkoutDao workoutDao();
+    public abstract WorkoutPlanDao workoutPlanDao();
 }
