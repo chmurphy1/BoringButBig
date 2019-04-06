@@ -6,8 +6,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "workout",
-        primaryKeys = {"workout_id", "language"},
-        indices = {@Index(value = {"workout_id", "language"}, unique = true)})
+        primaryKeys = {"language"},
+        indices = {@Index(value = {"language"}, unique = true)})
 public class WorkoutEntity {
 
     @PrimaryKey
