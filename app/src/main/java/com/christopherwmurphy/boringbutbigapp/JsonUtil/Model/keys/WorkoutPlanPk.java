@@ -59,4 +59,14 @@ public class WorkoutPlanPk{
 
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return "WorkoutPlanPk{" +
+                "week=" + week +
+                ", planId=" + planId +
+                ", seqNum=" + seqNum +
+                ", workoutId=" + workoutId +
+                '}';
+    }
 }

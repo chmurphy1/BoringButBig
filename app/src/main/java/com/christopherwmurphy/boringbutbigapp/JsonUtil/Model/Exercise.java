@@ -45,4 +45,14 @@ public class Exercise {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "id=" + id +
+                ", video=" + video +
+                ", name='" + name + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }

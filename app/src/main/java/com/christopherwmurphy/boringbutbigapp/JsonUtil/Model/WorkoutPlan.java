@@ -54,4 +54,15 @@ public class WorkoutPlan {
     public void setId(WorkoutPlanPk id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "WorkoutPlan{" +
+                "id=" + id +
+                ", exercise=" + exercise +
+                ", setScheme=" + setScheme +
+                ", workout=" + workout +
+                ", optional=" + optional +
+                '}';
+    }
 }

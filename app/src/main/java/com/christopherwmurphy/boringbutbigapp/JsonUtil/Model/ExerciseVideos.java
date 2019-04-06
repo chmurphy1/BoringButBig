@@ -26,4 +26,11 @@ public class ExerciseVideos {
         this.video_url = video_url;
     }
 
+    @Override
+    public String toString() {
+        return "ExerciseVideos{" +
+                "id=" + id +
+                ", video_url='" + video_url + '\'' +
+                '}';
+    }
 }

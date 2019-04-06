@@ -32,4 +32,13 @@ public class ExerciseSteps {
     public void setLanguage(String language) {
         this.language = language;
     }
+
+    @Override
+    public String toString() {
+        return "ExerciseSteps{" +
+                "id=" + id +
+                ", stepText='" + stepText + '\'' +
+                ", language='" + language + '\'' +
+                '}';
+    }
 }

@@ -50,5 +50,13 @@ public class ExerciseStepsPk {
             return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "ExerciseStepsPk{" +
+                "exerciseId=" + exerciseId +
+                ", stepSeq=" + stepSeq +
+                '}';
+    }
 }
 

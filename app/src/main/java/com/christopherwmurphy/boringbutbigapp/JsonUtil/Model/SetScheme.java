@@ -45,5 +45,14 @@ public class SetScheme {
         this.percentage = percentage;
     }
 
+    @Override
+    public String toString() {
+        return "SetScheme{" +
+                "setId=" + setId +
+                ", set=" + set +
+                ", reps=" + reps +
+                ", percentage=" + percentage +
+                '}';
+    }
 }
 
