@@ -2,6 +2,7 @@ package com.christopherwmurphy.boringbutbigapp.JsonUtil.Services;
 
 import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.Exercise;
 import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.ExerciseSteps;
+import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.ExerciseVideos;
 import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.SetScheme;
 import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.Workout;
 import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.WorkoutPlan;
@@ -25,4 +26,7 @@ public interface WorkoutService {
 
     @GET("/WorkoutPlansAll")
     Call<List<WorkoutPlan>> getAllWorkoutPlans();
+
+    @GET("/ExerciseVideosAll")
+    Call<List<ExerciseVideos>> getAllExerciseVideos();
 }
