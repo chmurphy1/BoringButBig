@@ -6,8 +6,9 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "workout",
-        primaryKeys = {"language"},
-        indices = {@Index(value = {"language"}, unique = true)})
+        primaryKeys = {"seq_num"},
+        indices = {@Index(value = {"seq_num"}, unique = true),
+                   @Index(value = {"workout_id"})})
 public class WorkoutEntity {
 
     @PrimaryKey
@@ -20,12 +21,17 @@ public class WorkoutEntity {
     @ColumnInfo(name = "language")
     private String language;
 
+    @ColumnInfo(name = "seq_num")
+    private Integer seqNum;
+
     public WorkoutEntity(Integer workoutId,
                          String name,
-                         String language) {
+                         String language,
+                         Integer seqNum) {
         this.workoutId = workoutId;
         this.name = name;
         this.language = language;
+        this.seqNum = seqNum;
     }
 
     public Integer getWorkoutId() {
@@ -50,5 +56,13 @@ public class WorkoutEntity {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+    
+    public Integer getSeqNum() {
+        return seqNum;
+    }
+
+    public void setSeqNum(Integer seqNum) {
+        this.seqNum = seqNum;
     }
 }
