@@ -98,7 +98,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                 WorkoutEntity entity = new WorkoutEntity(w.getWorkoutId(), w.getName(), w.getLanguage(), w.getSeqNum());
                 workoutEntities.add(entity);
             }
-            Log.d("WorkoutList","<<<<<beforedbstuff");
+            Log.d("WorkoutList","<<<<<before db insert");
             db.workoutDao().insertAll(workoutEntities);
         }
     }
@@ -123,6 +123,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                 SetSchemeEntity entity = new SetSchemeEntity(s.getSetId(),s.getSet(), s.getReps(), s.getPercentage());
                 entities.add(entity);
             }
+            Log.d("schemeList","<<<<<before db insert");
             db.setSchemeDao().insertAll(entities);
         }
     }
@@ -147,6 +148,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                 ExerciseVideosEntity entity = new ExerciseVideosEntity(v.getId(),v.getVideo_url());
                 entities.add(entity);
             }
+            Log.d("videosList","<<<<<before db insert");
             db.exerciseVideosDao().insertAll(entities);
         }
     }
@@ -171,6 +173,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                 ExerciseStepsEntity entity = new ExerciseStepsEntity(s.getId().getExerciseId(), s.getId().getStepSeq(), s.getStepText(), s.getLanguage());
                 entities.add(entity);
             }
+            Log.d("stepList","<<<<<before db insert");
             db.exerciseStepsDao().insertAll(entities);
         }
     }
@@ -195,6 +198,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                 ExerciseEntity entity = new ExerciseEntity(e.getId(),e.getName(),e.getLanguage(), e.getVideo().getId());
                 entities.add(entity);
             }
+            Log.d("exerciseList","<<<<<before db insert");
             db.exerciseDao().insertAll(entities);
         }
     }
@@ -221,6 +225,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
                                                                  p.getSetScheme().getSetId(),p.getWorkout().getWorkoutId(),p.getOptional());
                 entities.add(entity);
             }
+            Log.d("planList","<<<<<before db insert");
             db.workoutPlanDao().insertAll(entities);
         }
     }
