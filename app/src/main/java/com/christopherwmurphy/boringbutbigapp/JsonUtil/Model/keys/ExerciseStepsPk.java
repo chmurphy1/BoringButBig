@@ -4,6 +4,14 @@ public class ExerciseStepsPk {
     private Integer exerciseId;
     private Integer stepSeq;
 
+    public ExerciseStepsPk() {
+    }
+
+    public ExerciseStepsPk(Integer exerciseId, Integer stepSeq) {
+        this.exerciseId = exerciseId;
+        this.stepSeq = stepSeq;
+    }
+
     public Integer getExerciseId() {
         return exerciseId;
     }

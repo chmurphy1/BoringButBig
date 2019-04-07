@@ -9,6 +9,13 @@ public class WorkoutPlanPk{
     public WorkoutPlanPk() {
     }
 
+    public WorkoutPlanPk(Integer week, Integer planId, Integer seqNum, Integer workoutId) {
+        this.week = week;
+        this.planId = planId;
+        this.seqNum = seqNum;
+        this.workoutId = workoutId;
+    }
+
     public Integer getWeek() {
         return this.week;
     }
