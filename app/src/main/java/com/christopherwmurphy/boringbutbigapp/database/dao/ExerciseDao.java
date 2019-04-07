@@ -3,6 +3,7 @@ package com.christopherwmurphy.boringbutbigapp.database.dao;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
@@ -12,10 +13,10 @@ import java.util.List;
 @Dao
 public interface ExerciseDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ExerciseEntity exercise);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ExerciseEntity> exercises);
 
     @Query("Select * FROM exercise where id = :id")
