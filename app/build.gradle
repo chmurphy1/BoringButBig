@@ -17,10 +17,10 @@ android {
             it.buildConfigField "String", "BASE_URL", "\"http://christopherwmurphy.us:8080\""
         }
         development{
-            it.buildConfigField "String", "BASE_URL", "\"http://christopherwmurphy.us:8080\""
+            it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
         }
         debug{
-            it.buildConfigField "String", "BASE_URL", "\"http://christopherwmurphy.us:8080\""
+            it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
         }
     }
 }
