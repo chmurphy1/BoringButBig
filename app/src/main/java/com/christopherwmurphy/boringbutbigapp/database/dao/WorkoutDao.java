@@ -21,4 +21,7 @@ public interface WorkoutDao {
 
     @Query("select * from workout")
     LiveData<List<WorkoutEntity>> getAllWorkouts();
+
+    @Query("select * from workout")
+    List<WorkoutEntity> geListOfWorkouts();
 }

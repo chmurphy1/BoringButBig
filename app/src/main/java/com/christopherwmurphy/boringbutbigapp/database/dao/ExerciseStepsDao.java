@@ -21,4 +21,7 @@ public interface ExerciseStepsDao {
 
     @Query("Select * from exercise_steps where exercise_id = :exerciseId")
     LiveData<List<ExerciseStepsEntity>> getStepsByExerciseId(int exerciseId);
+
+    @Query("Select * from exercise_steps")
+    List<ExerciseStepsEntity> getAllSteps();
 }

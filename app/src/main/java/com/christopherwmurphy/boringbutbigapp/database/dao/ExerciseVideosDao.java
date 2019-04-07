@@ -21,4 +21,7 @@ public interface ExerciseVideosDao {
 
     @Query("select * from exercise_videos where id = :id")
     LiveData<ExerciseVideosEntity> getVideoById(int id);
+
+    @Query("select * from exercise_videos")
+    List<ExerciseVideosEntity> getAllVideos();
 }

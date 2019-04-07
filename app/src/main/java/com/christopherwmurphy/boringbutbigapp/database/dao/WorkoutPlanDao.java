@@ -21,4 +21,7 @@ public interface WorkoutPlanDao {
 
     @Query("select * from workout_plan where workout_id = :id")
     LiveData<List<WorkoutPlanEntity>> getAllWorkoutPlans(int id);
+
+    @Query("select * from workout_plan")
+    List<WorkoutPlanEntity> getAllWorkoutPlans();
 }
