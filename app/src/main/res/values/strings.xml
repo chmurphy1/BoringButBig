@@ -3,4 +3,12 @@
     <string name="domain_name">christopherwmurphy.com</string>
     <string name="dummy_account">dummy</string>
     <string name="DATABASE_NAME">Workout Database</string>
+    <string name="language">language</string>
+    <string name="english">en</string>
+    <string name="authority">com.christopherwmurphy.boringbutbigapp.SyncAdapter.ContentProvider</string>
+
+    <string name="Home">Home</string>
+    <string name="plans">Workout Plans</string>
+    <string name="movements">Movements</string>
+    <string name="history">Workout History</string>
 </resources>

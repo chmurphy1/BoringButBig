@@ -107,7 +107,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
             getAllExerciseStepResults();
         }
         else{
-            getExerciseStepResultsNotInList(steps);
+            //getExerciseStepResultsNotInList(steps);
         }
 
         List<ExerciseEntity> exercises = db.exerciseDao().getListOfExercises();
@@ -125,7 +125,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
             getAllWorkoutPlanResults();
         }
         else{
-            getWorkoutPlanResultsNotInList(plan);
+            //getWorkoutPlanResultsNotInList(plan);
         }
     }
 
@@ -292,6 +292,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
         }
 
         steps_call = service.getNotInExerciseStepsList(id);
+        Log.d("stepList","<<<<<" +  stepList.toString());
 
         try {
             steps_response = steps_call.execute();
