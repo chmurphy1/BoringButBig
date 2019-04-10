@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseAdapater;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseViewModel;
@@ -31,6 +32,12 @@ public class ExerciseFragment extends Fragment {
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
     private ExerciseAdapater adapter;
+    private ExerciseCallback callback = new ExerciseCallback() {
+        @Override
+        public void callback(int exerciseId, int videoId) {
+
+        }
+    } ;
 
     public ExerciseFragment() {
     }
@@ -62,7 +69,7 @@ public class ExerciseFragment extends Fragment {
         evm.getExercises().observe(this, new Observer<List<ExerciseEntity>>() {
             @Override
             public void onChanged(@Nullable List<ExerciseEntity> exerciseEntities) {
-                adapter = new ExerciseAdapater(exerciseEntities);
+                adapter = new ExerciseAdapater(exerciseEntities, callback);
                 exerciseRecyclerView.setAdapter(adapter);
                 layoutMgr.scrollToPosition(scrollPos);
             }
