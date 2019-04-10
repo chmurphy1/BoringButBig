@@ -2,10 +2,11 @@ package com.christopherwmurphy.boringbutbigapp;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.Fragment;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -13,6 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.christopherwmurphy.boringbutbigapp.fragments.ExerciseFragment;
+import com.christopherwmurphy.boringbutbigapp.fragments.HomeFragment;
+import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutHistoryFragment;
+import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutPlanFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        onSelectDrawerItem(menuItem);
                         menuItem.setChecked(true);
                         drawerLayout.closeDrawers();
                         return true;
@@ -68,9 +75,26 @@ public class MainActivity extends AppCompatActivity {
     public void onSelectDrawerItem(MenuItem menuItem) {
         Fragment fragment = null;
 
-        switch (menuItem.getItemId()) {
+        FragmentManager mgr = getSupportFragmentManager();
 
+        switch (menuItem.getItemId()) {
+            case R.id.nav_home :
+                fragment = new HomeFragment();
+                break;
+            case R.id.nav_plans:
+                fragment = new WorkoutPlanFragment();
+                break;
+            case R.id.nav_history:
+                fragment = new WorkoutHistoryFragment();
+                break;
+            case R.id.nav_movements:
+                fragment = new ExerciseFragment();
+                break;
+            default:
+                fragment = new HomeFragment();
         }
+        mgr.beginTransaction().replace(R.id.content, fragment).commit();
+
     }
 
     @Override
