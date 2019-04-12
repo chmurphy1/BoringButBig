@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     Account mAccount;
     ContentResolver mResolver;
 
-    @BindView(R.id.my_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     @BindView(R.id.drawer_layout)

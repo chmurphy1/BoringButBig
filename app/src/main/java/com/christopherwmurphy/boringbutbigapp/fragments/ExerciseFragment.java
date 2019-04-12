@@ -2,6 +2,7 @@ package com.christopherwmurphy.boringbutbigapp.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseAdapater;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseCallback;
+import com.christopherwmurphy.boringbutbigapp.ExerciseDetailActivity;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseViewModel;
@@ -35,7 +37,7 @@ public class ExerciseFragment extends Fragment {
     private ExerciseCallback callback = new ExerciseCallback() {
         @Override
         public void callback(int exerciseId, int videoId) {
-
+            launchNextScreen(exerciseId, videoId);
         }
     } ;
 
@@ -80,5 +82,22 @@ public class ExerciseFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.VISIBLE_ITEM_KEY, layoutMgr.findFirstCompletelyVisibleItemPosition());
+    }
+
+    public void launchNextScreen(int exerciseId, int videoId){
+        Bundle parms = new Bundle();
+        parms.putInt(Constants.EXERCISE_ID, exerciseId);
+        parms.putInt(Constants.VIDEO_ID, videoId);
+
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+
+        if(isTablet){
+
+        }
+        else{
+            Intent intent = new Intent(this.getContext(), ExerciseDetailActivity.class);
+            intent.putExtras(parms);
+            startActivity(intent);
+        }
     }
 }

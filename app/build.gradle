@@ -16,10 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             it.buildConfigField "String", "BASE_URL", "\"http://christopherwmurphy.us:8080\""
         }
-        development{
+        development {
             it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
         }
-        debug{
+        debug {
             it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
         }
     }
