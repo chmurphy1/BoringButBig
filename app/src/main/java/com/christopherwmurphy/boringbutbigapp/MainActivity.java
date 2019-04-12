@@ -17,8 +17,8 @@ import android.view.MenuItem;
 
 import com.christopherwmurphy.boringbutbigapp.fragments.ExerciseFragment;
 import com.christopherwmurphy.boringbutbigapp.fragments.HomeFragment;
+import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutFragment;
 import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutHistoryFragment;
-import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutPlanFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
                 break;
             case R.id.nav_plans:
-                fragment = new WorkoutPlanFragment();
+                fragment = new WorkoutFragment();
                 break;
             case R.id.nav_history:
                 fragment = new WorkoutHistoryFragment();
