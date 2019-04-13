@@ -2,6 +2,7 @@ package com.christopherwmurphy.boringbutbigapp.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutAdapter;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutViewModel;
+import com.christopherwmurphy.boringbutbigapp.WorkoutPlanDetailActivity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 
 import java.util.List;
@@ -32,6 +35,14 @@ public class WorkoutFragment extends Fragment {
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
     private WorkoutAdapter adapter;
+
+    private WorkoutCallback callback = new WorkoutCallback() {
+        @Override
+        public void callback(int workoutId) {
+            launchNextScreen(workoutId);
+        }
+    };
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View workoutPlanListView = inflater.inflate(R.layout.workout_fragment_layout, container,false);
@@ -60,7 +71,7 @@ public class WorkoutFragment extends Fragment {
         wm.getWorkouts().observe(this, new Observer<List<WorkoutEntity>>() {
             @Override
             public void onChanged(@Nullable List<WorkoutEntity> workouts) {
-                adapter = new WorkoutAdapter(workouts);
+                adapter = new WorkoutAdapter(workouts, callback);
                 workoutRecyclerView.setAdapter(adapter);
                 layoutMgr.scrollToPosition(scrollPos);
             }
@@ -73,4 +84,24 @@ public class WorkoutFragment extends Fragment {
         outState.putInt(Constants.VISIBLE_ITEM_KEY, layoutMgr.findFirstCompletelyVisibleItemPosition());
     }
 
+    public void launchNextScreen(int workoutId){
+        Bundle parms = new Bundle();
+        parms.putInt(Constants.WORKOUT_ID, workoutId);
+
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+
+        if(isTablet){
+          //  detail = new ExerciseDetailFragment();
+
+          //  detail.setArguments(parms);
+
+         //   this.getActivity().getSupportFragmentManager().beginTransaction()
+         //           .replace(R.id.detail, detail).commit();
+        }
+        else{
+            Intent intent = new Intent(this.getContext(),WorkoutPlanDetailActivity.class);
+           // intent.putExtras(parms);
+            startActivity(intent);
+        }
+    }
 }
