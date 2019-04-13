@@ -2,6 +2,7 @@ package com.christopherwmurphy.boringbutbigapp.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ public class ExerciseFragment extends Fragment {
     @BindView(R.id.exerciseList)
     RecyclerView exerciseRecyclerView;
 
+    private ExerciseDetailFragment detail;
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
     private ExerciseAdapater adapter;
@@ -92,12 +94,24 @@ public class ExerciseFragment extends Fragment {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
 
         if(isTablet){
+            detail = new ExerciseDetailFragment();
 
+            detail.setArguments(parms);
+
+            this.getActivity().getSupportFragmentManager().beginTransaction()
+                              .replace(R.id.detail, detail).commit();
         }
         else{
             Intent intent = new Intent(this.getContext(), ExerciseDetailActivity.class);
             intent.putExtras(parms);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
     }
 }
