@@ -112,6 +112,8 @@ public class ExerciseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
+        if(this.getResources().getBoolean(R.bool.isTablet)) {
+            this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
+        }
     }
 }
