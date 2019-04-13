@@ -15,12 +15,15 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             it.buildConfigField "String", "BASE_URL", "\"http://christopherwmurphy.us:8080\""
+            it.buildConfigField 'String', 'YOUTUBE_API_KEY', Youtube_ApiKey
         }
         development {
             it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
+            it.buildConfigField 'String', 'YOUTUBE_API_KEY', Youtube_ApiKey
         }
         debug {
             it.buildConfigField "String", "BASE_URL", "\"http://win7:8080\""
+            it.buildConfigField 'String', 'YOUTUBE_API_KEY', Youtube_ApiKey
         }
     }
 }
@@ -42,5 +45,5 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
+    implementation files('libs/YouTubeAndroidPlayerApi.jar')
 }

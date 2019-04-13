@@ -11,4 +11,6 @@
     <string name="plans">Workout Plans</string>
     <string name="movements">Movements</string>
     <string name="history">Workout History</string>
+
+    <string name="videoErrorMessage">There was a problem loading the videos, please try again later.</string>
 </resources>

@@ -1,8 +1,6 @@
 package com.christopherwmurphy.boringbutbigapp.fragments;
 
-
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,30 +11,37 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.christopherwmurphy.boringbutbigapp.BuildConfig;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseStepsViewModel;
+import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseVideoViewModel;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.ExerciseViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
-import com.google.android.exoplayer2.ui.PlayerView;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEntity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ExerciseDetailFragment extends Fragment {
+public class ExerciseDetailFragment extends Fragment{
 
     @BindView(R.id.tada)
     TextView exerciseSteps;
 
-    @BindView(R.id.VideoPlayer)
-    PlayerView videoPlayerView;
-
     private Bundle parameters;
+    YouTubePlayerSupportFragment youTubePlayerFragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View exerciseDetailView = inflater.inflate(R.layout.exercise_detail_fragment, container,false);
+
+        youTubePlayerFragment = YouTubePlayerSupportFragment.newInstance();
+        this.getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.videoPlayer,youTubePlayerFragment).commit();
+
         ButterKnife.bind(this, exerciseDetailView);
 
         return exerciseDetailView;
@@ -54,6 +59,7 @@ public class ExerciseDetailFragment extends Fragment {
         }
 
         startExerciseStepsObserver();
+        startExerciseVideoObserver();
     }
 
     @Override
@@ -76,6 +82,33 @@ public class ExerciseDetailFragment extends Fragment {
                     sb.append(es.getStepText() + Constants.NEW_LINE);
                 }
                 exerciseSteps.setText(sb);
+            }
+        });
+    }
+
+    public void startExerciseVideoObserver(){
+        ExerciseVideoViewModel evvm = ViewModelProviders.of(this, new ExerciseViewModelFactory(this.getActivity().getApplication(), parameters))
+                                                        .get(ExerciseVideoViewModel.class);
+
+        evvm.getVideo().observe(this, new Observer<ExerciseVideosEntity>() {
+            @Override
+            public void onChanged(@Nullable ExerciseVideosEntity exerciseVideosEntity) {
+               final String url = exerciseVideosEntity.getVideo_url();
+
+                youTubePlayerFragment.initialize(BuildConfig.YOUTUBE_API_KEY, new YouTubePlayer.OnInitializedListener() {
+                    @Override
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                        if (!b) {
+                            youTubePlayer.setFullscreen(false);
+                            youTubePlayer.cueVideo(url);
+                        }
+                    }
+
+                    @Override
+                    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+
+                    }
+                });
             }
         });
     }

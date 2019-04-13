@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="?attr/actionBarSize">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:paddingTop="?attr/actionBarSize">
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/VideoPlayer"/>
-    </FrameLayout>
+        android:id="@+id/videoPlayer"
+        android:paddingBottom="10dp"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="tada"
-        android:id="@+id/tada"
-        android:paddingTop="320dp"/>
-
-</FrameLayout>
+        android:id="@+id/tada" />
+</LinearLayout>
