@@ -1,6 +1,7 @@
 package com.christopherwmurphy.boringbutbigapp.database.Entity;
 
 import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
@@ -16,13 +17,19 @@ import static android.arch.persistence.room.ForeignKey.SET_NULL;
                                     onDelete = SET_NULL),
                         @ForeignKey(entity = SetSchemeEntity.class,
                                     parentColumns = "set_id",
-                                    childColumns = "set_id",
+                                    childColumns = "setId",
                                     onDelete = SET_NULL)},
         indices = {@Index(value = {"week", "plan_id", "seq_num", "workout_id"}, unique = true),
                    @Index("exercise_id"),
-                   @Index("set_id"),
+                   @Index("setId"),
                    @Index("workout_id")})
 public class WorkoutPlanEntity {
+
+    @Embedded
+    SetSchemeEntity scheme;
+
+    @Embedded
+    ExerciseEntity exercise;
 
     @NonNull
     @ColumnInfo(name="week")
@@ -39,7 +46,7 @@ public class WorkoutPlanEntity {
     @ColumnInfo(name="exercise_id")
     private Integer exerciseId;
 
-    @ColumnInfo(name="set_id")
+    @ColumnInfo(name="setId")
     private Integer setId;
 
     @NonNull
@@ -119,5 +126,21 @@ public class WorkoutPlanEntity {
 
     public void setOptional(Boolean optional) {
         this.optional = optional;
+    }
+
+    public SetSchemeEntity getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(SetSchemeEntity scheme) {
+        this.scheme = scheme;
+    }
+
+    public ExerciseEntity getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(ExerciseEntity exercise) {
+        this.exercise = exercise;
     }
 }
