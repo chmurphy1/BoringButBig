@@ -21,7 +21,7 @@ import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
-                      WorkoutEntity.class, WorkoutPlanEntity.class}, version = 1, exportSchema = false)
+                      WorkoutEntity.class, WorkoutPlanEntity.class}, version = 2, exportSchema = false)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
 
@@ -31,7 +31,7 @@ public abstract class WorkoutDB extends RoomDatabase {
                 if(dbInstance == null){
                     dbInstance = Room.databaseBuilder(context.getApplicationContext(),
                             WorkoutDB.class,
-                            context.getResources().getString(R.string.DATABASE_NAME)).build();
+                            context.getResources().getString(R.string.DATABASE_NAME)).fallbackToDestructiveMigration().build();
                 }
             }
         }
