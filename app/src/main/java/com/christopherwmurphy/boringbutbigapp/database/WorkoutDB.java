@@ -3,16 +3,20 @@ package com.christopherwmurphy.boringbutbigapp.database;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.SetSchemeEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
+import com.christopherwmurphy.boringbutbigapp.database.converter.TimestampConverter;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseMaxDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseStepsDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseVideosDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.SetSchemeDao;
@@ -21,7 +25,9 @@ import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
-                      WorkoutEntity.class, WorkoutPlanEntity.class}, version = 2, exportSchema = false)
+                      WorkoutEntity.class, WorkoutPlanEntity.class,
+                      ExerciseMaxEntity.class}, version = 3, exportSchema = false)
+@TypeConverters(TimestampConverter.class)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
 
@@ -44,4 +50,5 @@ public abstract class WorkoutDB extends RoomDatabase {
     public abstract SetSchemeDao setSchemeDao();
     public abstract WorkoutDao workoutDao();
     public abstract WorkoutPlanDao workoutPlanDao();
+    public abstract ExerciseMaxDao exerciseMaxDao();
 }
