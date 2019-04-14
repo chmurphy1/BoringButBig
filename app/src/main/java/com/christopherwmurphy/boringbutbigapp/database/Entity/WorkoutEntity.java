@@ -23,14 +23,27 @@ public class WorkoutEntity {
     @ColumnInfo(name = "seq_num")
     private Integer seqNum;
 
+    public String getLifts() {
+        return lifts;
+    }
+
+    public void setLifts(String lifts) {
+        this.lifts = lifts;
+    }
+
+    @ColumnInfo(name = "primary_lifts")
+    private String lifts;
+
     public WorkoutEntity(Integer workoutId,
                          String name,
                          String language,
-                         Integer seqNum) {
+                         Integer seqNum,
+                         String lifts) {
         this.workoutId = workoutId;
         this.name = name;
         this.language = language;
         this.seqNum = seqNum;
+        this.lifts = lifts;
     }
 
     public Integer getWorkoutId() {
@@ -64,4 +77,5 @@ public class WorkoutEntity {
     public void setSeqNum(Integer seqNum) {
         this.seqNum = seqNum;
     }
+
 }

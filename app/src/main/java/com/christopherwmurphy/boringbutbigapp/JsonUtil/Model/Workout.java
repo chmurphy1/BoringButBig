@@ -6,12 +6,14 @@ public class Workout {
     private String name;
     private String language;
     private Integer seqNum;
+    private String lifts;
 
     public Workout() {
         this.workoutId = 0;
         this.name = Constants.EMPTY;
         this.language = Constants.EMPTY;
         this.seqNum = 0;
+        this.lifts = Constants.EMPTY;
     }
 
     public Integer getWorkoutId() {
@@ -41,12 +43,22 @@ public class Workout {
         this.seqNum = seqNum;
     }
 
+    public String getLifts() {
+        return lifts;
+    }
+
+    public void setLifts(String lifts) {
+        this.lifts = lifts;
+    }
+
     @Override
     public String toString() {
         return "Workout{" +
                 "workoutId=" + workoutId +
                 ", name='" + name + '\'' +
                 ", language='" + language + '\'' +
+                ", seqNum=" + seqNum +
+                ", lifts='" + lifts + '\'' +
                 '}';
     }
 }
