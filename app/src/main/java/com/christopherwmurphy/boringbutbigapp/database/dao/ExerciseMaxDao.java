@@ -15,6 +15,6 @@ public interface ExerciseMaxDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ExerciseMaxEntity exercise);
 
-    @Query("Select * FROM exercise_max m join exercise e on (m.max_id = e.id) where max_id = :id order by date desc")
-    List<ExerciseMaxEntity> getExerciseMaxById(int id);
+    @Query("Select * FROM exercise_max m join exercise e on (m.max_id = e.id) where max_id in(:id) order by date desc")
+    List<ExerciseMaxEntity> getExerciseMaxById(List<Integer> id);
 }

@@ -27,4 +27,7 @@ public interface ExerciseDao {
 
     @Query("Select * FROM exercise")
     List<ExerciseEntity> getListOfExercises();
+
+    @Query("Select * FROM exercise where id in(:list)")
+    List<ExerciseEntity> getListOfExercisesInList(List<Integer> list);
 }

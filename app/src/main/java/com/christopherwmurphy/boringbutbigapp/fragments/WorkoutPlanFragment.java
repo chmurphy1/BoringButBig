@@ -1,10 +1,8 @@
 package com.christopherwmurphy.boringbutbigapp.fragments;
 
-
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,8 +14,11 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseMaxTaskDelegate;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
+import com.christopherwmurphy.boringbutbigapp.Util.Task.ExerciseMaxTask;
+import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxResults;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutPlanViewModel;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
@@ -63,7 +64,23 @@ public class WorkoutPlanFragment extends Fragment {
 
     @OnClick(R.id.createWorkoutButton)
     public void showPopUp(){
-        Toast.makeText(getContext(),"pop up clicked on", Toast.LENGTH_LONG).show();;
+        Toast.makeText(getContext(),"pop up clicked on", Toast.LENGTH_LONG).show();
+
+        ExerciseMaxTask task = new ExerciseMaxTask(getContext(), new ExerciseMaxTaskDelegate() {
+            @Override
+            public void callback(ExerciseMaxResults exerciseMaxResults) {
+
+            }
+        });
+
+        ArrayList<Integer> keys = parameters.getIntegerArrayList(Constants.LIST_ID);
+        Integer[] listOfKeys = new Integer[keys.size()];
+
+        for(int i = 0; i < listOfKeys.length; i++){
+            listOfKeys[i] = keys.get(i);
+        }
+
+        task.execute(listOfKeys);
     }
 
     @Override
