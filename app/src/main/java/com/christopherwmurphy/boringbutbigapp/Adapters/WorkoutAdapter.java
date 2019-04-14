@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.ViewHolder.WorkoutViewHolder;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
@@ -16,11 +17,13 @@ import java.util.List;
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutViewHolder> {
 
     private List<WorkoutEntity> workout;
+    private WorkoutCallback callback;
 
-    public WorkoutAdapter(List<WorkoutEntity> workout) {
+
+    public WorkoutAdapter(List<WorkoutEntity> workout, WorkoutCallback callback) {
         this.workout = workout;
+        this.callback = callback;
     }
-
 
     @NonNull
     @Override
@@ -29,7 +32,7 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutViewHolder> {
         LayoutInflater mInflater = LayoutInflater.from(context);
         View v = mInflater.inflate(R.layout.workout_list_layout, parent, false);
 
-        return new WorkoutViewHolder(v);
+        return new WorkoutViewHolder(v, callback);
     }
 
     @Override

@@ -8,4 +8,8 @@ public class Constants {
     public static final String WORKOUT_ID = "WORKOUT_ID";
     public static final String PARAMETERS = "PARAMETERS";
     public static final String NEW_LINE = "\n";
+    public static final String SPACE = " ";
+    public static final String AT = "@";
+    public static final String X = "x";
+    public static final String PERCENT_SIGN= "%";
 }

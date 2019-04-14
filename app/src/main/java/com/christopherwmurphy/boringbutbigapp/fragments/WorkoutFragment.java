@@ -100,7 +100,7 @@ public class WorkoutFragment extends Fragment {
         }
         else{
             Intent intent = new Intent(this.getContext(),WorkoutPlanDetailActivity.class);
-           // intent.putExtras(parms);
+            intent.putExtras(parms);
             startActivity(intent);
         }
     }
