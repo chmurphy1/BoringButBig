@@ -16,7 +16,7 @@ import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseStepsViewModel;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseVideoViewModel;
-import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.ExerciseViewModelFactory;
+import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEntity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -69,7 +69,7 @@ public class ExerciseDetailFragment extends Fragment{
     }
 
     public void startExerciseStepsObserver(){
-        ExerciseStepsViewModel esvm = ViewModelProviders.of(this, new ExerciseViewModelFactory(this.getActivity().getApplication(), parameters))
+        ExerciseStepsViewModel esvm = ViewModelProviders.of(this, new CustomViewModelFactory(this.getActivity().getApplication(), parameters))
                                                         .get(ExerciseStepsViewModel.class);
 
         esvm.getSteps().observe(this, new Observer<List<ExerciseStepsEntity>>() {
@@ -87,7 +87,7 @@ public class ExerciseDetailFragment extends Fragment{
     }
 
     public void startExerciseVideoObserver(){
-        ExerciseVideoViewModel evvm = ViewModelProviders.of(this, new ExerciseViewModelFactory(this.getActivity().getApplication(), parameters))
+        ExerciseVideoViewModel evvm = ViewModelProviders.of(this, new CustomViewModelFactory(this.getActivity().getApplication(), parameters))
                                                         .get(ExerciseVideoViewModel.class);
 
         evvm.getVideo().observe(this, new Observer<ExerciseVideosEntity>() {
