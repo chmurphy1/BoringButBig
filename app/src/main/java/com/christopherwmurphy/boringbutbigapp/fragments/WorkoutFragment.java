@@ -36,6 +36,7 @@ public class WorkoutFragment extends Fragment {
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
     private WorkoutAdapter adapter;
+    private WorkoutPlanFragment detail;
 
     private WorkoutCallback callback = new WorkoutCallback() {
         @Override
@@ -106,17 +107,25 @@ public class WorkoutFragment extends Fragment {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
 
         if(isTablet){
-          //  detail = new ExerciseDetailFragment();
+            detail = new WorkoutPlanFragment();
 
-          //  detail.setArguments(parms);
+            detail.setArguments(parms);
 
-         //   this.getActivity().getSupportFragmentManager().beginTransaction()
-         //           .replace(R.id.detail, detail).commit();
+            this.getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.detail, detail).commit();
         }
         else{
             Intent intent = new Intent(this.getContext(),WorkoutPlanDetailActivity.class);
             intent.putExtras(parms);
             startActivity(intent);
+        }
+    }
+
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if(this.getResources().getBoolean(R.bool.isTablet)) {
+            this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
         }
     }
 }
