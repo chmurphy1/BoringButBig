@@ -19,7 +19,9 @@ public interface WorkoutPlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<WorkoutPlanEntity> plan);
 
-    @Query("select * from workout_plan where workout_id = :id")
+    @Query( "select * " +
+            "from workout_plan p join exercise e on (p.exercise_id = e.id) join set_scheme s on (p.setId = s.set_id) " +
+            "where workout_id = :id order by week, plan_id, seq_num")
     LiveData<List<WorkoutPlanEntity>> getAllWorkoutPlans(int id);
 
     @Query("select * from workout_plan")
