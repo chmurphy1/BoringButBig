@@ -36,6 +36,8 @@ public class WorkoutViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick(R.id.WorkoutCard)
     public void onClick(){
-        callback.callback(workout.getWorkoutId());
+
+        String[] lifts = workout.getLifts().split(",");
+        callback.callback(workout.getWorkoutId(), lifts);
     }
 }

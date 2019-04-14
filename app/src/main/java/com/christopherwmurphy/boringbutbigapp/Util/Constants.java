@@ -12,4 +12,5 @@ public class Constants {
     public static final String AT = "@";
     public static final String X = "x";
     public static final String PERCENT_SIGN= "%";
+    public static final String LIST_ID = "LIST_ID";
 }

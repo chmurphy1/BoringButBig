@@ -21,6 +21,7 @@ import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutViewModel;
 import com.christopherwmurphy.boringbutbigapp.WorkoutPlanDetailActivity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,8 +39,8 @@ public class WorkoutFragment extends Fragment {
 
     private WorkoutCallback callback = new WorkoutCallback() {
         @Override
-        public void callback(int workoutId) {
-            launchNextScreen(workoutId);
+        public void callback(int workoutId, String[] lifts) {
+            launchNextScreen(workoutId, lifts);
         }
     };
 
@@ -84,9 +85,23 @@ public class WorkoutFragment extends Fragment {
         outState.putInt(Constants.VISIBLE_ITEM_KEY, layoutMgr.findFirstCompletelyVisibleItemPosition());
     }
 
-    public void launchNextScreen(int workoutId){
+    public void launchNextScreen(int workoutId, String[] lifts){
         Bundle parms = new Bundle();
         parms.putInt(Constants.WORKOUT_ID, workoutId);
+
+        ArrayList<Integer> list = new ArrayList<>();
+        if(lifts != null){
+            for(String s : lifts){
+                try {
+                    Integer exerciseId = Integer.parseInt(s);
+                    list.add(exerciseId);
+                }
+                catch (NumberFormatException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        parms.putIntegerArrayList("LIST_ID", list);
 
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
 
