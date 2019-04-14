@@ -15,4 +15,5 @@
     <string name="videoErrorMessage">There was a problem loading the videos, please try again later.</string>
     <string name="week">Week</string>
     <string name="optional">optional : </string>
+    <string name="my_workout">Create Workout</string>
 </resources>

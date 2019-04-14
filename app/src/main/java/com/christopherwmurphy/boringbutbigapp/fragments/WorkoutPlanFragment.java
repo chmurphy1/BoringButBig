@@ -11,7 +11,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
 import com.christopherwmurphy.boringbutbigapp.R;
@@ -26,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WorkoutPlanFragment extends Fragment {
 
@@ -34,6 +37,9 @@ public class WorkoutPlanFragment extends Fragment {
 
     @BindView(R.id.workoutPlanList)
     ExpandableListView workoutPlanDetail;
+
+    @BindView(R.id.createWorkoutButton)
+    Button workoutButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View workoutPlanView = inflater.inflate(R.layout.workout_plan_detail_fragment, container,false);
@@ -53,6 +59,11 @@ public class WorkoutPlanFragment extends Fragment {
             parameters = this.getArguments();
         }
         setupExpandableListView();
+    }
+
+    @OnClick(R.id.createWorkoutButton)
+    public void showPopUp(){
+        Toast.makeText(getContext(),"pop up clicked on", Toast.LENGTH_LONG).show();;
     }
 
     @Override
