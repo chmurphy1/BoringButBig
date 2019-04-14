@@ -171,7 +171,7 @@ public class DataAdapter extends AbstractThreadedSyncAdapter {
             List<WorkoutEntity> workoutEntities = new ArrayList<>();
 
             for(Workout w : workoutList){
-                WorkoutEntity entity = new WorkoutEntity(w.getWorkoutId(), w.getName(), w.getLanguage(), w.getSeqNum());
+                WorkoutEntity entity = new WorkoutEntity(w.getWorkoutId(), w.getName(), w.getLanguage(), w.getSeqNum(),w.getLifts());
                 workoutEntities.add(entity);
             }
             Log.d("WorkoutList","<<<<<before db insert");
