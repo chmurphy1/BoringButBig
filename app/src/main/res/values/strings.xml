@@ -16,4 +16,8 @@
     <string name="week">Week</string>
     <string name="optional">optional : </string>
     <string name="my_workout">Create Workout</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="popup_message">Please enter your max for the following exercises.  If you have entered your maxes before, these fields have been populated for you.</string>
+    <string name="popup_title">Set Max Pop-up</string>
 </resources>

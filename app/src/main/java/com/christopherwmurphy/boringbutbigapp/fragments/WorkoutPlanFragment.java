@@ -2,17 +2,23 @@ package com.christopherwmurphy.boringbutbigapp.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
+import android.widget.PopupWindow;
 
+import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseMaxAdapter;
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseMaxTaskDelegate;
 import com.christopherwmurphy.boringbutbigapp.R;
@@ -22,6 +28,7 @@ import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxR
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutPlanViewModel;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
+import android.view.ViewGroup.LayoutParams;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,8 +49,11 @@ public class WorkoutPlanFragment extends Fragment {
     @BindView(R.id.createWorkoutButton)
     Button workoutButton;
 
+    View workoutPlanView;
+    private RecyclerView maxRecyclerView;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View workoutPlanView = inflater.inflate(R.layout.workout_plan_detail_fragment, container,false);
+        workoutPlanView = inflater.inflate(R.layout.workout_plan_detail_fragment, container,false);
         ButterKnife.bind(this, workoutPlanView);
 
         return workoutPlanView;
@@ -64,11 +74,26 @@ public class WorkoutPlanFragment extends Fragment {
 
     @OnClick(R.id.createWorkoutButton)
     public void showPopUp(){
-        Toast.makeText(getContext(),"pop up clicked on", Toast.LENGTH_LONG).show();
-
         ExerciseMaxTask task = new ExerciseMaxTask(getContext(), new ExerciseMaxTaskDelegate() {
             @Override
             public void callback(ExerciseMaxResults exerciseMaxResults) {
+
+                LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View customView = layoutInflater.inflate(R.layout.exercise_max_popup_layout,null);
+
+                maxRecyclerView = (RecyclerView) customView.findViewById(R.id.maxList);
+                ExerciseMaxAdapter adapter = new ExerciseMaxAdapter(exerciseMaxResults);
+
+                LinearLayoutManager layoutMgr = new LinearLayoutManager(customView.getContext());
+
+                maxRecyclerView.setLayoutManager(layoutMgr);
+                maxRecyclerView.setHasFixedSize(true);
+                maxRecyclerView.setAdapter(adapter);
+
+                PopupWindow popup = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                popup.setFocusable(true);
+                popup.update();
+                popup.showAtLocation(workoutPlanView, Gravity.CENTER, 0, 0);
 
             }
         });
