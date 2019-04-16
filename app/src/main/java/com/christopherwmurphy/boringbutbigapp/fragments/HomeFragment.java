@@ -11,14 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+
+import com.christopherwmurphy.boringbutbigapp.Callbacks.HomeCallback;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.isDefinedCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
+import com.christopherwmurphy.boringbutbigapp.Util.Task.GenerateCurrentWorkoutTask;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.IsWorkoutDefined;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
+
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
 
     private View currentWorkoutPlan;
+
+    private HomeCallback callback = new HomeCallback() {
+        @Override
+        public void callback(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight) {
+
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         currentWorkoutPlan = inflater.inflate(R.layout.home_fragment_layout, container,false);
@@ -35,6 +50,8 @@ public class HomeFragment extends Fragment {
             public void callback(boolean isDefined) {
                 if(!isDefined){
                     createPopup();
+                }else{
+                    new GenerateCurrentWorkoutTask(getContext(), callback).execute();
                 }
             }
         }).execute();

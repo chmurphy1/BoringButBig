@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 
 import java.util.List;
+import java.util.Set;
 
 @Dao
 public interface ExerciseMaxDao {
@@ -22,5 +23,5 @@ public interface ExerciseMaxDao {
     List<ExerciseMaxEntity> getExerciseMaxById(List<Integer> id);
 
     @Query("Select * FROM exercise_max m join exercise e on (m.max_id = e.id) where max_id in(:id) order by date desc LIMIT :size")
-    List<ExerciseMaxEntity> getExerciseMaxByIdLimitSize(List<Integer> id, int size);
+    List<ExerciseMaxEntity> getExerciseMaxByIdLimitSize(Set<Integer> id, int size);
 }
