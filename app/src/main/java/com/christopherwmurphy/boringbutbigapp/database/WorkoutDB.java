@@ -13,6 +13,7 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.SetSchemeEntity;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.TodaysWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.converter.TimestampConverter;
@@ -22,13 +23,15 @@ import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseMaxDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseStepsDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseVideosDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.SetSchemeDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.TodaysWorkoutPlanDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
                       WorkoutEntity.class, WorkoutPlanEntity.class,
-                      ExerciseMaxEntity.class, CurrentWorkoutPlanEntity.class}, version = 4, exportSchema = false)
+                      ExerciseMaxEntity.class, CurrentWorkoutPlanEntity.class,
+                      TodaysWorkoutPlanEntity.class}, version = 5, exportSchema = false)
 @TypeConverters(TimestampConverter.class)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
@@ -54,4 +57,5 @@ public abstract class WorkoutDB extends RoomDatabase {
     public abstract WorkoutPlanDao workoutPlanDao();
     public abstract ExerciseMaxDao exerciseMaxDao();
     public abstract CurrentWorkoutPlanDao currentWorkoutPlanDao();
+    public abstract TodaysWorkoutPlanDao todaysWorkoutPlanDao();
 }

@@ -25,7 +25,7 @@ public interface CurrentWorkoutPlanDao {
             "where workout_id = :id order by week, plan_id, seq_num")
     LiveData<List<CurrentWorkoutPlanEntity>> getWorkoutPlans(int id);
 
-    @Query("select * from workout_plan")
+    @Query("select * from current_workout_plan")
     List<CurrentWorkoutPlanEntity> getCurrentWorkoutPlan();
 
     @Query("Delete from current_workout_plan")
