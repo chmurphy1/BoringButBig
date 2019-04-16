@@ -7,6 +7,7 @@ import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 import com.christopherwmurphy.boringbutbigapp.R;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
@@ -15,6 +16,7 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.SetSchemeEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.converter.TimestampConverter;
+import com.christopherwmurphy.boringbutbigapp.database.dao.CurrentWorkoutPlanDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseMaxDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseStepsDao;
@@ -26,7 +28,7 @@ import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
                       WorkoutEntity.class, WorkoutPlanEntity.class,
-                      ExerciseMaxEntity.class}, version = 3, exportSchema = false)
+                      ExerciseMaxEntity.class, CurrentWorkoutPlanEntity.class}, version = 4, exportSchema = false)
 @TypeConverters(TimestampConverter.class)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
@@ -51,4 +53,5 @@ public abstract class WorkoutDB extends RoomDatabase {
     public abstract WorkoutDao workoutDao();
     public abstract WorkoutPlanDao workoutPlanDao();
     public abstract ExerciseMaxDao exerciseMaxDao();
+    public abstract CurrentWorkoutPlanDao currentWorkoutPlanDao();
 }

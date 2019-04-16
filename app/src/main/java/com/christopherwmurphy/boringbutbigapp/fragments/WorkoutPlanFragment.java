@@ -3,6 +3,7 @@ package com.christopherwmurphy.boringbutbigapp.fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseMaxAdapter;
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseMaxTaskDelegate;
+import com.christopherwmurphy.boringbutbigapp.MainActivity;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.ExerciseMaxTask;
@@ -27,6 +29,7 @@ import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxR
 import com.christopherwmurphy.boringbutbigapp.ViewHolder.ExerciseMaxViewHolder;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutPlanViewModel;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
@@ -148,11 +151,32 @@ public class WorkoutPlanFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     WorkoutDB db = WorkoutDB.getInstance(getContext());
+
                                     if(!newMaxes.isEmpty()){
                                         db.exerciseMaxDao().insertAll(newMaxes);
                                     }
+
+                                    List<WorkoutPlanEntity> plans = db.workoutPlanDao().getAllWorkoutPlanById(parameters.getInt(Constants.WORKOUT_ID));
+                                    List<CurrentWorkoutPlanEntity> currentPlans = new ArrayList<>();
+
+                                    for(WorkoutPlanEntity p : plans){
+                                        CurrentWorkoutPlanEntity current = new CurrentWorkoutPlanEntity(p.getWeek(),
+                                                                                                        p.getPlanId(),
+                                                                                                        p.getSeqNum(),
+                                                                                                        p.getExerciseId(),
+                                                                                                        p.getSetId(),
+                                                                                                        p.getWorkoutId(),
+                                                                                                        p.getOptional());
+                                        currentPlans.add(current);
+                                    }
+
+                                    //delete old plan
+                                    db.currentWorkoutPlanDao().deleteAll();
+                                    db.currentWorkoutPlanDao().insertAll(currentPlans);
                                 }
                             });
+                            Intent intent = new Intent(getContext(),MainActivity.class);
+                            startActivity(intent);
                         }
                     }
                 });
