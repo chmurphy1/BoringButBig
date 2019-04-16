@@ -21,10 +21,12 @@ import android.widget.PopupWindow;
 import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseMaxAdapter;
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseMaxTaskDelegate;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.OnSaveCallback;
 import com.christopherwmurphy.boringbutbigapp.MainActivity;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.ExerciseMaxTask;
+import com.christopherwmurphy.boringbutbigapp.Util.Task.OnSaveTask;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxResults;
 import com.christopherwmurphy.boringbutbigapp.ViewHolder.ExerciseMaxViewHolder;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
@@ -59,6 +61,14 @@ public class WorkoutPlanFragment extends Fragment {
     @BindView(R.id.createWorkoutButton)
     Button workoutButton;
     View workoutPlanView;
+
+    private OnSaveCallback callback = new OnSaveCallback() {
+        @Override
+        public void callback() {
+            Intent intent = new Intent(getContext(),MainActivity.class);
+            startActivity(intent);
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         workoutPlanView = inflater.inflate(R.layout.workout_plan_detail_fragment, container,false);
@@ -147,36 +157,10 @@ public class WorkoutPlanFragment extends Fragment {
                             }
                         }
                         if(!errorFlag){
-                            DbExecutor.getInstance().getDbThread().execute(new Runnable() {
-                                @Override
-                                public void run() {
-                                    WorkoutDB db = WorkoutDB.getInstance(getContext());
-
-                                    if(!newMaxes.isEmpty()){
-                                        db.exerciseMaxDao().insertAll(newMaxes);
-                                    }
-
-                                    List<WorkoutPlanEntity> plans = db.workoutPlanDao().getAllWorkoutPlanById(parameters.getInt(Constants.WORKOUT_ID));
-                                    List<CurrentWorkoutPlanEntity> currentPlans = new ArrayList<>();
-
-                                    for(WorkoutPlanEntity p : plans){
-                                        CurrentWorkoutPlanEntity current = new CurrentWorkoutPlanEntity(p.getWeek(),
-                                                                                                        p.getPlanId(),
-                                                                                                        p.getSeqNum(),
-                                                                                                        p.getExerciseId(),
-                                                                                                        p.getSetId(),
-                                                                                                        p.getWorkoutId(),
-                                                                                                        p.getOptional());
-                                        currentPlans.add(current);
-                                    }
-
-                                    //delete old plan
-                                    db.currentWorkoutPlanDao().deleteAll();
-                                    db.currentWorkoutPlanDao().insertAll(currentPlans);
-                                }
-                            });
-                            Intent intent = new Intent(getContext(),MainActivity.class);
-                            startActivity(intent);
+                            OnSaveTask task = new OnSaveTask(getContext(),parameters.getInt(Constants.WORKOUT_ID),callback);
+                            ExerciseMaxEntity[] entities = new ExerciseMaxEntity[newMaxes.size()];
+                            newMaxes.toArray(entities);
+                            task.execute(entities);
                         }
                     }
                 });
