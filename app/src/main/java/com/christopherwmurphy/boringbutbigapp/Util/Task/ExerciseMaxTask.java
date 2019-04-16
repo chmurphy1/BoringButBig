@@ -16,7 +16,7 @@ public class ExerciseMaxTask extends AsyncTask<Integer, Void, ExerciseMaxResults
 
     private Context context;
     private List<ExerciseMaxEntity> exerciseMaxes = new ArrayList<>();
-    private List<ExerciseEntity> exercises;
+    private List<ExerciseEntity> exercises = new ArrayList<>();
     private ExerciseMaxTaskDelegate delegate;
 
     public ExerciseMaxTask(Context context, ExerciseMaxTaskDelegate delegate) {

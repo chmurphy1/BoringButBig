@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.PopupWindow;
@@ -25,11 +24,19 @@ import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.ExerciseMaxTask;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxResults;
+import com.christopherwmurphy.boringbutbigapp.ViewHolder.ExerciseMaxViewHolder;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutPlanViewModel;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
-import android.view.ViewGroup.LayoutParams;
+import com.christopherwmurphy.boringbutbigapp.database.Utility.DbExecutor;
+import com.christopherwmurphy.boringbutbigapp.database.WorkoutDB;
 
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
+
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,9 +55,7 @@ public class WorkoutPlanFragment extends Fragment {
 
     @BindView(R.id.createWorkoutButton)
     Button workoutButton;
-
     View workoutPlanView;
-    private RecyclerView maxRecyclerView;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         workoutPlanView = inflater.inflate(R.layout.workout_plan_detail_fragment, container,false);
@@ -76,24 +81,88 @@ public class WorkoutPlanFragment extends Fragment {
     public void showPopUp(){
         ExerciseMaxTask task = new ExerciseMaxTask(getContext(), new ExerciseMaxTaskDelegate() {
             @Override
-            public void callback(ExerciseMaxResults exerciseMaxResults) {
+            public void callback(final ExerciseMaxResults exerciseMaxResults) {
 
                 LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View customView = layoutInflater.inflate(R.layout.exercise_max_popup_layout,null);
 
-                maxRecyclerView = (RecyclerView) customView.findViewById(R.id.maxList);
-                ExerciseMaxAdapter adapter = new ExerciseMaxAdapter(exerciseMaxResults);
+                RecyclerView maxRecyclerView = (RecyclerView) customView.findViewById(R.id.maxList);
+                Button cancel = (Button) customView.findViewById(R.id.cancel_button);
+                Button save = (Button) customView.findViewById(R.id.save_button);
 
+                final ExerciseMaxAdapter adapter = new ExerciseMaxAdapter(exerciseMaxResults);
                 LinearLayoutManager layoutMgr = new LinearLayoutManager(customView.getContext());
 
                 maxRecyclerView.setLayoutManager(layoutMgr);
                 maxRecyclerView.setHasFixedSize(true);
                 maxRecyclerView.setAdapter(adapter);
 
-                PopupWindow popup = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                final PopupWindow popup = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 popup.setFocusable(true);
                 popup.update();
                 popup.showAtLocation(workoutPlanView, Gravity.CENTER, 0, 0);
+
+                save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        List<ExerciseMaxViewHolder> viewHolders = adapter.getItems();
+                        final List<ExerciseMaxEntity> newMaxes = new ArrayList<>();
+                        boolean errorFlag = false;
+
+                        for(ExerciseMaxViewHolder view : viewHolders){
+                            Object obj = view.getExercise();
+                            if(view.getNewMax() > 0){
+
+                                if (obj instanceof ExerciseMaxEntity){
+
+                                    ExerciseMaxEntity e = (ExerciseMaxEntity) obj;
+                                    if(e.getMax().intValue() != view.getNewMax().intValue()){
+                                        newMaxes.add(new ExerciseMaxEntity(e.getMaxId(),view.getNewMax(), new Timestamp(System.currentTimeMillis())));
+                                    }
+
+                                }else if(obj instanceof ExerciseEntity){
+                                    ExerciseEntity e = (ExerciseEntity) obj;
+                                    newMaxes.add(new ExerciseMaxEntity(e.getId(),view.getNewMax(),new Timestamp(System.currentTimeMillis())));
+                                }
+                            }
+                            else{
+                                errorFlag = true;
+
+                                String lift = "";
+                                if (obj instanceof ExerciseMaxEntity){
+                                    ExerciseMaxEntity e = (ExerciseMaxEntity) obj;
+                                    lift = ((ExerciseMaxEntity) obj).getExercise().getName();
+                                }else if(obj instanceof ExerciseEntity){
+                                    ExerciseEntity e = (ExerciseEntity) obj;
+                                    lift = ((ExerciseEntity) obj).getName();
+                                }
+
+                                Toast.makeText(getContext(),getContext().getResources().getString(R.string.max_error_message_part_1)+Constants.SPACE+
+                                        lift+Constants.SPACE+getContext().getResources().getString(R.string.max_error_message_part_2),Toast.LENGTH_LONG).show();
+
+                                break;
+                            }
+                        }
+                        if(!errorFlag){
+                            DbExecutor.getInstance().getDbThread().execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    WorkoutDB db = WorkoutDB.getInstance(getContext());
+                                    if(!newMaxes.isEmpty()){
+                                        db.exerciseMaxDao().insertAll(newMaxes);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popup.dismiss();
+                    }
+                });
 
             }
         });

@@ -42,12 +42,14 @@
                 android:layout_width="160dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
+                android:id="@+id/save_button"
                 android:text="@string/save"/>
 
             <Button
                 android:layout_width="160dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center"
+                android:id="@+id/cancel_button"
                 android:text="@string/cancel"/>
         </LinearLayout>
 </LinearLayout>

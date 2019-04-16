@@ -10,15 +10,17 @@ import android.view.ViewGroup;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxResults;
 import com.christopherwmurphy.boringbutbigapp.ViewHolder.ExerciseMaxViewHolder;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class ExerciseMaxAdapter extends RecyclerView.Adapter<ExerciseMaxViewHolder>  {
 
     private ArrayList list;
+    private ArrayList<ExerciseMaxViewHolder> viewHolder;
 
     public ExerciseMaxAdapter(ExerciseMaxResults exerciseMaxResults){
         list = exerciseMaxResults.getList();
+        viewHolder = new ArrayList<>();
     }
 
     @NonNull
@@ -28,7 +30,9 @@ public class ExerciseMaxAdapter extends RecyclerView.Adapter<ExerciseMaxViewHold
         LayoutInflater mInflater = LayoutInflater.from(context);
         View v = mInflater.inflate(R.layout.exercise_max_recyclerview, parent, false);
 
-        return new ExerciseMaxViewHolder(v);
+        ExerciseMaxViewHolder holder = new ExerciseMaxViewHolder(v);
+        viewHolder.add(holder);
+        return holder;
     }
 
     @Override
@@ -39,5 +43,9 @@ public class ExerciseMaxAdapter extends RecyclerView.Adapter<ExerciseMaxViewHold
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public List<ExerciseMaxViewHolder> getItems(){
+        return viewHolder;
     }
 }
