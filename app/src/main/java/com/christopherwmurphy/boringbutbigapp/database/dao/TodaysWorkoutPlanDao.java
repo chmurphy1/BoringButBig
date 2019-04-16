@@ -13,8 +13,8 @@ public interface TodaysWorkoutPlanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TodaysWorkoutPlanEntity plan);
 
-    @Query("Select * from todays_workout_plan where week = :week and plan_id = :planId")
-    public TodaysWorkoutPlanEntity getTodaysWorkoutByWeekAndPlan(int week, int planId);
+    @Query("Select * from todays_workout_plan LIMIT 1")
+    public TodaysWorkoutPlanEntity getTodaysWorkout();
 
     @Query("delete from todays_workout_plan")
     public void deleteAll();

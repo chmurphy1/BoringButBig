@@ -22,8 +22,8 @@ public interface CurrentWorkoutPlanDao {
 
     @Query( "select * " +
             "from current_workout_plan p join exercise e on (p.exercise_id = e.id) join set_scheme s on (p.setId = s.set_id) " +
-            "where workout_id = :id order by week, plan_id, seq_num")
-    LiveData<List<CurrentWorkoutPlanEntity>> getWorkoutPlans(int id);
+            "where week = :week and plan_id = :planId order by seq_num")
+    List<CurrentWorkoutPlanEntity> getTodaysWorkoutPlans(int week, int planId);
 
     @Query("select * from current_workout_plan")
     List<CurrentWorkoutPlanEntity> getCurrentWorkoutPlan();
