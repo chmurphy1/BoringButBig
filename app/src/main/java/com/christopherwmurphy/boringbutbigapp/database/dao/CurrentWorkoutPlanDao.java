@@ -23,10 +23,10 @@ public interface CurrentWorkoutPlanDao {
     @Query( "select * " +
             "from current_workout_plan p join exercise e on (p.exercise_id = e.id) join set_scheme s on (p.setId = s.set_id) " +
             "where workout_id = :id order by week, plan_id, seq_num")
-    LiveData<List<CurrentWorkoutPlanEntity>> getAllWorkoutPlans(int id);
+    LiveData<List<CurrentWorkoutPlanEntity>> getWorkoutPlans(int id);
 
     @Query("select * from workout_plan")
-    List<CurrentWorkoutPlanEntity> getAllWorkoutPlans();
+    List<CurrentWorkoutPlanEntity> getCurrentWorkoutPlan();
 
     @Query("Delete from current_workout_plan")
     public void deleteAll();

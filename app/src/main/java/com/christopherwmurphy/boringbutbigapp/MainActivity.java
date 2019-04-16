@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        setupHome();
+    }
+
+    public void setupHome(){
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content, new HomeFragment()).commit();
     }
 
     public void startNavView(){
@@ -94,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new HomeFragment();
         }
         mgr.beginTransaction().replace(R.id.content, fragment).commit();
-
     }
 
     @Override

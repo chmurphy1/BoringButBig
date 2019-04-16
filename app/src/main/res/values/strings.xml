@@ -20,7 +20,10 @@
     <string name="save">Save</string>
     <string name="popup_message">Please enter your max for the following exercises.  If you have entered your maxes before, these fields have been populated for you.</string>
     <string name="popup_title">Set Max Pop-up</string>
+    <string name="home_popup_title">No Workout Selected</string>
     <string name="max_error_message_part_1">The max for a</string>
     <string name="max_error_message_part_2">must be greater than 0.</string>
     <string name="valid_input_number">Only numbers are allowed as input.</string>
+    <string name="no_workout_msg">You have not selected a workout plan.  Please select one from the workouts.</string>
+    <string name="ok">Ok</string>
 </resources>
