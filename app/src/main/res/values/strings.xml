@@ -26,4 +26,5 @@
     <string name="valid_input_number">Only numbers are allowed as input.</string>
     <string name="no_workout_msg">You have not selected a workout plan.  Please select one from the workouts.</string>
     <string name="ok">Ok</string>
+    <string name="workout_table_title">Today\'s Workout</string>
 </resources>
