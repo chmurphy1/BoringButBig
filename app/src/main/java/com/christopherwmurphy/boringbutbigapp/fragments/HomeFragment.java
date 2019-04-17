@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.christopherwmurphy.boringbutbigapp.Callbacks.HomeCallback;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.isDefinedCallback;
@@ -29,25 +32,39 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlan
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class HomeFragment extends Fragment {
 
     private View currentWorkoutPlan;
     private List<CurrentWorkoutPlanEntity> todaysPlan;
     private HashMap<Integer, Long> calculatedWeight;
+    String regex = "\\d+";
+    Pattern pattern;
 
     @BindView(R.id.workoutTable)
     TableLayout workoutTable;
 
+    @BindView(R.id.complete)
+    Button complete;
+
     private HomeCallback callback = new HomeCallback() {
+
         @Override
         public void callback(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight) {
             createTable(todaysPlan, calculatedWeight);
         }
     };
+
+    public HomeFragment(){
+        super();
+        this.pattern = Pattern.compile(regex);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         currentWorkoutPlan = inflater.inflate(R.layout.home_fragment_layout, container,false);
@@ -149,6 +166,30 @@ public class HomeFragment extends Fragment {
                 perscribedWeight.setInputType(InputType.TYPE_CLASS_PHONE);
                 perscribedWeight.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
                 perscribedWeight.setWidth(160);
+
+                perscribedWeight.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        Matcher matcher = pattern.matcher(s.toString());
+
+                        if(!matcher.matches()){
+                            Toast.makeText(getContext(),getContext().getResources().getString(R.string.numbers_only),Toast.LENGTH_LONG).show();
+                            String newVal = (s.toString()).replaceAll("\\D", "");
+                            s.clear();
+                            s.append(newVal);
+                        }
+                    }
+                });
             }
 
             tableRow.addView(lift);
@@ -160,6 +201,11 @@ public class HomeFragment extends Fragment {
 
             workoutTable.addView(tableRow);
         }
+    }
+
+    @OnClick(R.id.complete)
+    public void onClick(){
+
     }
 }
 
