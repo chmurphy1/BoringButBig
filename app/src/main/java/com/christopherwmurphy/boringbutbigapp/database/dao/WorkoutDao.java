@@ -24,4 +24,7 @@ public interface WorkoutDao {
 
     @Query("select * from workout")
     List<WorkoutEntity> geListOfWorkouts();
+
+    @Query("select * from workout where workout_id = :id")
+    WorkoutEntity getWorkouById(int id);
 }

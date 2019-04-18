@@ -22,12 +22,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.christopherwmurphy.boringbutbigapp.Callbacks.CompleteCallback;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.HomeCallback;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.isDefinedCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.GenerateCurrentWorkoutTask;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.IsWorkoutDefined;
+import com.christopherwmurphy.boringbutbigapp.Util.Task.OnWorkoutCompleteTask;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 
 import java.util.HashMap;
@@ -42,8 +44,8 @@ import butterknife.OnClick;
 public class HomeFragment extends Fragment {
 
     private View currentWorkoutPlan;
-    private List<CurrentWorkoutPlanEntity> todaysPlan;
-    private HashMap<Integer, Long> calculatedWeight;
+    private List<CurrentWorkoutPlanEntity> workout;
+    private HashMap<Integer, Long> cWeight;
     String regex = "\\d+";
     Pattern pattern;
 
@@ -57,9 +59,15 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void callback(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight) {
+            workout = todaysPlan;
             createTable(todaysPlan, calculatedWeight);
         }
     };
+
+    public interface HomeFragmentCallback{
+        public void callback();
+    };
+    private HomeFragmentCallback homeCallback;
 
     public HomeFragment(){
         super();
@@ -81,8 +89,10 @@ public class HomeFragment extends Fragment {
             public void callback(boolean isDefined) {
                 if(!isDefined){
                     createPopup();
+                    complete.setVisibility(View.GONE);
                 }else{
                     new GenerateCurrentWorkoutTask(getContext(), callback).execute();
+                    complete.setVisibility(View.VISIBLE);
                 }
             }
         }).execute();
@@ -205,7 +215,18 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.complete)
     public void onClick(){
+        new OnWorkoutCompleteTask(workout, workoutTable, getContext(), new CompleteCallback() {
+            @Override
+            public void completeCallback() {
+                homeCallback.callback();
+            }
+        }).execute();
+    }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        homeCallback = (HomeFragmentCallback) getActivity();
     }
 }
 

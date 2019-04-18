@@ -7,6 +7,8 @@ public class Workout {
     private String language;
     private Integer seqNum;
     private String lifts;
+    private String increments;
+    private Integer period;
 
     public Workout() {
         this.workoutId = 0;
@@ -14,6 +16,8 @@ public class Workout {
         this.language = Constants.EMPTY;
         this.seqNum = 0;
         this.lifts = Constants.EMPTY;
+        this.period = 0;
+        this.increments = Constants.EMPTY;
     }
 
     public Integer getWorkoutId() {
@@ -51,6 +55,22 @@ public class Workout {
         this.lifts = lifts;
     }
 
+    public String getIncrements() {
+        return increments;
+    }
+
+    public void setIncrements(String increments) {
+        this.increments = increments;
+    }
+
+    public Integer getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
+    }
+
     @Override
     public String toString() {
         return "Workout{" +
@@ -59,6 +79,8 @@ public class Workout {
                 ", language='" + language + '\'' +
                 ", seqNum=" + seqNum +
                 ", lifts='" + lifts + '\'' +
+                ", increments='" + increments + '\'' +
+                ", period=" + period +
                 '}';
     }
 }

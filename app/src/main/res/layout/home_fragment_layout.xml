@@ -17,5 +17,6 @@
         android:layout_height="60dp"
         android:id="@+id/complete"
         android:text="@string/complete"
-        android:layout_gravity="bottom"/>
+        android:layout_gravity="bottom"
+        android:visibility="gone"/>
 </FrameLayout>

@@ -29,7 +29,7 @@ import butterknife.ButterKnife;
  *  for the navigation drawer.
  *
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.HomeFragmentCallback {
 
     Account mAccount;
     ContentResolver mResolver;
@@ -144,5 +144,10 @@ public class MainActivity extends AppCompatActivity {
            // throw new Exception("An error occurred adding the account to the account manager.");
             return null;
         }
+    }
+
+    @Override
+    public void callback() {
+        setupHome();
     }
 }

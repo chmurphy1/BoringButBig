@@ -23,13 +23,11 @@ public class WorkoutEntity {
     @ColumnInfo(name = "seq_num")
     private Integer seqNum;
 
-    public String getLifts() {
-        return lifts;
-    }
+    @ColumnInfo(name = "period")
+    private Integer period;
 
-    public void setLifts(String lifts) {
-        this.lifts = lifts;
-    }
+    @ColumnInfo(name = "increments")
+    private String increments;
 
     @ColumnInfo(name = "primary_lifts")
     private String lifts;
@@ -38,12 +36,16 @@ public class WorkoutEntity {
                          String name,
                          String language,
                          Integer seqNum,
-                         String lifts) {
+                         String lifts,
+                         String increments,
+                         Integer period) {
         this.workoutId = workoutId;
         this.name = name;
         this.language = language;
         this.seqNum = seqNum;
         this.lifts = lifts;
+        this.increments = increments;
+        this.period = period;
     }
 
     public Integer getWorkoutId() {
@@ -78,4 +80,27 @@ public class WorkoutEntity {
         this.seqNum = seqNum;
     }
 
+    public String getLifts() {
+        return lifts;
+    }
+
+    public void setLifts(String lifts) {
+        this.lifts = lifts;
+    }
+
+    public Integer getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Integer period) {
+        this.period = period;
+    }
+
+    public String getIncrements() {
+        return increments;
+    }
+
+    public void setIncrements(String increments) {
+        this.increments = increments;
+    }
 }

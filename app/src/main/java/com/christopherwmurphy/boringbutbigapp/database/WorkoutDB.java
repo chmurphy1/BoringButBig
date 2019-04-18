@@ -15,6 +15,7 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEnti
 import com.christopherwmurphy.boringbutbigapp.database.Entity.SetSchemeEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.TodaysWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
+import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.converter.TimestampConverter;
 import com.christopherwmurphy.boringbutbigapp.database.dao.CurrentWorkoutPlanDao;
@@ -25,13 +26,14 @@ import com.christopherwmurphy.boringbutbigapp.database.dao.ExerciseVideosDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.SetSchemeDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.TodaysWorkoutPlanDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutDao;
+import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutHistoryDao;
 import com.christopherwmurphy.boringbutbigapp.database.dao.WorkoutPlanDao;
 
 @Database(entities = {ExerciseEntity.class, ExerciseStepsEntity.class,
                       ExerciseVideosEntity.class, SetSchemeEntity.class,
                       WorkoutEntity.class, WorkoutPlanEntity.class,
                       ExerciseMaxEntity.class, CurrentWorkoutPlanEntity.class,
-                      TodaysWorkoutPlanEntity.class}, version = 5, exportSchema = false)
+                      TodaysWorkoutPlanEntity.class, WorkoutHistoryEntity.class}, version = 7, exportSchema = false)
 @TypeConverters(TimestampConverter.class)
 public abstract class WorkoutDB extends RoomDatabase {
     private static WorkoutDB dbInstance;
@@ -58,4 +60,5 @@ public abstract class WorkoutDB extends RoomDatabase {
     public abstract ExerciseMaxDao exerciseMaxDao();
     public abstract CurrentWorkoutPlanDao currentWorkoutPlanDao();
     public abstract TodaysWorkoutPlanDao todaysWorkoutPlanDao();
+    public abstract WorkoutHistoryDao workoutHistoryDao();
 }

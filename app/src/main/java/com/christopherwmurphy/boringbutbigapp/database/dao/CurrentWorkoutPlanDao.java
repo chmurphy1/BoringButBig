@@ -30,4 +30,13 @@ public interface CurrentWorkoutPlanDao {
 
     @Query("Delete from current_workout_plan")
     public void deleteAll();
+
+    @Query("Select max(week) from current_workout_plan")
+    public Integer getMaxWeek();
+
+    @Query("Select max(plan_id) from current_workout_plan where week = :week")
+    public Integer getMaxPlanIdByWeek(int week);
+
+    @Query("delete from current_workout_plan where week = :week and plan_id = :planId")
+    public void deleteFromTableByWeekAndPlanId(int week, int planId);
 }

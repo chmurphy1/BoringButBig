@@ -43,7 +43,7 @@ public class GenerateCurrentWorkoutTask extends AsyncTask<Void,Void,Void> {
             }
         }
         //Do not return to user
-        List<ExerciseMaxEntity> maxes =  db.exerciseMaxDao().getExerciseMaxByIdLimitSize(ids, ids.size());
+        List<ExerciseMaxEntity> maxes =  db.exerciseMaxDao().getExerciseMaxByIdLimitSize(ids);
 
         //Calculate weight used for workout
         //link by seq_num
