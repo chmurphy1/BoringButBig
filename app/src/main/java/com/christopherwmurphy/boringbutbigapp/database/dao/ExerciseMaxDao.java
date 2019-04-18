@@ -22,6 +22,8 @@ public interface ExerciseMaxDao {
     @Query("Select * FROM exercise_max m join exercise e on (m.max_id = e.id) where max_id in(:id) order by date desc")
     List<ExerciseMaxEntity> getExerciseMaxById(List<Integer> id);
 
-    @Query("Select * FROM exercise_max m join exercise e on (m.max_id = e.id) where max_id in(:id) order by date desc LIMIT :size")
-    List<ExerciseMaxEntity> getExerciseMaxByIdLimitSize(Set<Integer> id, int size);
+    @Query("Select m.*, e.* FROM exercise_max m join exercise e on (m.max_id = e.id)" +
+            "join (select max_id as mid, max(date) as mdate from exercise_max group by max_id) on " +
+            "(mid = m.max_id and m.date = mdate) where max_id in(:id)")
+    List<ExerciseMaxEntity> getExerciseMaxByIdLimitSize(Set<Integer> id);
 }
