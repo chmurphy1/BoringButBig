@@ -14,4 +14,5 @@ public class Constants {
     public static final String PERCENT_SIGN= "%";
     public static final String LIST_ID = "LIST_ID";
     public static final String COMMA = ",";
+    public static final String DATE = "DATE";
 }
