@@ -201,7 +201,7 @@ public class WorkoutPlanFragment extends Fragment {
 
                 int week = 1;
                 int index = 0;
-                int planId = 1;
+                int planId = 0;
                 ArrayList<String> header = new ArrayList<>();
                 HashMap<Integer, List<String>> rows = new HashMap<>();
                 ArrayList<String> list = new ArrayList<>();
@@ -217,12 +217,13 @@ public class WorkoutPlanFragment extends Fragment {
                             list = new ArrayList<>();
                         }
                         week = entity.getWeek();
-                        planId = entity.getPlanId();
+                        planId = 0;
                     }
 
                     if(planId != entity.getPlanId()){
                         planId = entity.getPlanId();
-                        list.add(Constants.NEW_LINE);
+                        list.add(Constants.NEW_LINE+getContext().getResources().getString(R.string.day)+Constants.SPACE+
+                                entity.getPlanId().toString());
                     }
 
                     if(entity.getOptional()){
