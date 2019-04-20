@@ -32,6 +32,8 @@ import com.christopherwmurphy.boringbutbigapp.Util.Task.IsWorkoutDefined;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.OnWorkoutCompleteTask;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -118,35 +120,24 @@ public class HomeFragment extends Fragment {
     }
 
     public void createTable(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight){
-        LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(
-                                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                                            LinearLayout.LayoutParams.MATCH_PARENT);
+        TableRow headerRow = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_home_layout_header, null);
 
         //Setup header
-        TableRow header = new TableRow(getContext());
-        header.setLayoutParams(tableRowParams);
-        header.setGravity(Gravity.CENTER);
-        header.setBackgroundResource(R.drawable.toolbar_rounded_edges);
-
-        TextView currentWorkout = new TextView(getContext());
+        TextView currentWorkout = (TextView) headerRow.getChildAt(0);
         currentWorkout.setText(R.string.workout_table_title);
-        currentWorkout.setTextSize(18.0f);
 
-        header.addView(currentWorkout);
-        workoutTable.addView(header);
+        workoutTable.addView(headerRow);
 
         //This is the body of the table
         for(CurrentWorkoutPlanEntity w : todaysPlan){
-            TableRow tableRow = new TableRow(getContext());
-            tableRow.setLayoutParams(tableRowParams);
-            int cellWidth = workoutTable.getWidth() / 3;
+            TableRow tableRow = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_home_layout_body, null);
 
-            TextView lift = new TextView(getContext());
+            TextView lift = (TextView) tableRow.getChildAt(0);
+            TextView reps = (TextView) tableRow.getChildAt(1);
+            EditText perscribedWeight = (EditText) tableRow.getChildAt(2);
+
             lift.setText(w.getExercise().getName());
-            lift.setGravity(Gravity.START);
-            lift.setPadding(20,0,0,0);
 
-            TextView reps = new TextView(getContext());
             StringBuilder sb = new StringBuilder();
 
             if(w.getScheme().getSet().intValue() > 1){
@@ -166,16 +157,10 @@ public class HomeFragment extends Fragment {
                 sb.append(Constants.PERCENT_SIGN);
             }
             reps.setText(sb.toString());
-            reps.setGravity(Gravity.CENTER);
-            reps.setPadding(0,0, (cellWidth-160), 0);
 
-            EditText perscribedWeight = new EditText(getContext());
             Long weight = calculatedWeight.get(w.getSeqNum());
             if(weight != null){
                 perscribedWeight.setText(weight.toString());
-                perscribedWeight.setInputType(InputType.TYPE_CLASS_PHONE);
-                perscribedWeight.setFilters(new InputFilter[] {new InputFilter.LengthFilter(4)});
-                perscribedWeight.setWidth(160);
 
                 perscribedWeight.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -201,12 +186,8 @@ public class HomeFragment extends Fragment {
                     }
                 });
             }
-
-            tableRow.addView(lift);
-            tableRow.addView(reps);
-
-            if(weight != null) {
-                tableRow.addView(perscribedWeight);
+            else{
+                perscribedWeight.setVisibility(View.INVISIBLE);
             }
 
             workoutTable.addView(tableRow);

@@ -123,7 +123,9 @@ public class OnWorkoutCompleteTask extends AsyncTask <Void, Void, Void>{
                     Object cell = row.getChildAt(c);
                     if(cell instanceof EditText){
                         EditText weight = (EditText) cell;
-                        list.add(Integer.parseInt(weight.getText().toString()));
+                        if(weight.getText().toString() != null && !Constants.EMPTY.equals(weight.getText().toString())) {
+                            list.add(Integer.parseInt(weight.getText().toString()));
+                        }
                     }
                 }
             }
