@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.christopherwmurphy.boringbutbigapp.Callbacks.CallbackFromWorkout;
 import com.christopherwmurphy.boringbutbigapp.fragments.ExerciseFragment;
 import com.christopherwmurphy.boringbutbigapp.fragments.HomeFragment;
 import com.christopherwmurphy.boringbutbigapp.fragments.WorkoutFragment;
@@ -42,6 +43,18 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
     @BindView(R.id.nav)
     NavigationView navigationView;
+
+    private Fragment fragment = null;
+
+    private CallbackFromWorkout wCallback = new CallbackFromWorkout() {
+        @Override
+        public void callback() {
+            getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+
+            fragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     public void onSelectDrawerItem(MenuItem menuItem) {
-        Fragment fragment = null;
 
         FragmentManager mgr = getSupportFragmentManager();
 
@@ -95,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
                 break;
             case R.id.nav_plans:
                 fragment = new WorkoutFragment();
+                ((WorkoutFragment) fragment).setwCallback(wCallback);
                 break;
             case R.id.nav_history:
                 fragment = new WorkoutHistoryFragment();

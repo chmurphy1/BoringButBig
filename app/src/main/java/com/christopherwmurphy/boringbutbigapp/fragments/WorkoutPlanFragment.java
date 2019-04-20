@@ -20,6 +20,7 @@ import android.widget.PopupWindow;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.ExerciseMaxAdapter;
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutPlanAdapter;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.CallbackFromWorkoutPlan;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.ExerciseMaxTaskDelegate;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.OnSaveCallback;
 import com.christopherwmurphy.boringbutbigapp.MainActivity;
@@ -62,11 +63,21 @@ public class WorkoutPlanFragment extends Fragment {
     Button workoutButton;
     View workoutPlanView;
 
+    private CallbackFromWorkoutPlan wpCallback;
+
+    public void setWpCallback(CallbackFromWorkoutPlan wpCallback) {
+        this.wpCallback = wpCallback;
+    }
+
     private OnSaveCallback callback = new OnSaveCallback() {
         @Override
         public void callback() {
-            Intent intent = new Intent(getContext(),MainActivity.class);
-            startActivity(intent);
+            if (getContext().getResources().getBoolean(R.bool.isTablet)) {
+                wpCallback.callback();
+            } else {
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
         }
     };
 
@@ -157,6 +168,7 @@ public class WorkoutPlanFragment extends Fragment {
                             }
                         }
                         if(!errorFlag){
+                            popup.dismiss();
                             OnSaveTask task = new OnSaveTask(getContext(),parameters.getInt(Constants.WORKOUT_ID),callback);
                             ExerciseMaxEntity[] entities = new ExerciseMaxEntity[newMaxes.size()];
                             newMaxes.toArray(entities);

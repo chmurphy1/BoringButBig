@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutAdapter;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.CallbackFromWorkout;
+import com.christopherwmurphy.boringbutbigapp.Callbacks.CallbackFromWorkoutPlan;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
@@ -37,6 +39,7 @@ public class WorkoutFragment extends Fragment {
     private int scrollPos;
     private WorkoutAdapter adapter;
     private WorkoutPlanFragment detail;
+    private CallbackFromWorkout wCallback;
 
     private WorkoutCallback callback = new WorkoutCallback() {
         @Override
@@ -45,12 +48,23 @@ public class WorkoutFragment extends Fragment {
         }
     };
 
+    private CallbackFromWorkoutPlan wpCallback = new CallbackFromWorkoutPlan() {
+        @Override
+        public void callback() {
+            getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
+            wCallback.callback();
+        }
+    };
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View workoutPlanListView = inflater.inflate(R.layout.workout_fragment_layout, container,false);
         ButterKnife.bind(this, workoutPlanListView);
 
         return workoutPlanListView;
+    }
+
+    public void setwCallback(CallbackFromWorkout wCallback) {
+        this.wCallback = wCallback;
     }
 
     @Override
@@ -88,7 +102,6 @@ public class WorkoutFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.VISIBLE_ITEM_KEY, layoutMgr.findFirstCompletelyVisibleItemPosition());
-//        outState.putParcelable(Constants.FRAGMENT, );
     }
 
     public void launchNextScreen(int workoutId, String[] lifts){
@@ -115,6 +128,7 @@ public class WorkoutFragment extends Fragment {
             detail = new WorkoutPlanFragment();
 
             detail.setArguments(parms);
+            detail.setWpCallback(wpCallback);
 
             this.getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.detail, detail).commit();
