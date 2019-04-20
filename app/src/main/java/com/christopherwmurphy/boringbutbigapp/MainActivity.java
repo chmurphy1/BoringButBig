@@ -70,15 +70,15 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        setupHome();
+        setupHome(false);
     }
 
-    public void setupHome(){
+    public void setupHome( boolean replace){
 
         FragmentManager mgr = getSupportFragmentManager();
         Fragment fgr = mgr.findFragmentById(R.id.content);
 
-        if(fgr == null) {
+        if((fgr == null) || (replace)){
             mgr.beginTransaction()
                     .replace(R.id.content, new HomeFragment()).commit();
         }
@@ -167,6 +167,6 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
     @Override
     public void callback() {
-        setupHome();
+        setupHome(true);
     }
 }
