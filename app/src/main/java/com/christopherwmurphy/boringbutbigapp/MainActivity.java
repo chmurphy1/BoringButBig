@@ -61,8 +61,14 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     public void setupHome(){
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content, new HomeFragment()).commit();
+
+        FragmentManager mgr = getSupportFragmentManager();
+        Fragment fgr = mgr.findFragmentById(R.id.content);
+
+        if(fgr == null) {
+            mgr.beginTransaction()
+                    .replace(R.id.content, new HomeFragment()).commit();
+        }
     }
 
     public void startNavView(){
