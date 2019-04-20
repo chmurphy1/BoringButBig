@@ -59,6 +59,10 @@ public class WorkoutHistoryFragment extends Fragment {
 
         if(savedInstanceState != null ){
             scrollPos = savedInstanceState.getInt(Constants.VISIBLE_ITEM_KEY);
+
+            if(this.getResources().getBoolean(R.bool.isTablet)) {
+                detail = (WorkoutHistoryDetailFragment)this.getActivity().getSupportFragmentManager().findFragmentById(R.id.detail);
+            }
         }
 
         layoutMgr = new LinearLayoutManager(getContext());
@@ -113,7 +117,7 @@ public class WorkoutHistoryFragment extends Fragment {
 
         if(this.getResources().getBoolean(R.bool.isTablet)) {
             if(detail != null) {
-                this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
+                this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commitAllowingStateLoss();
             }
         }
     }

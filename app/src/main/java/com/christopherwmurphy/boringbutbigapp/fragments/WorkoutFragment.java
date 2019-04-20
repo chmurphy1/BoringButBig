@@ -59,6 +59,10 @@ public class WorkoutFragment extends Fragment {
 
         if(savedInstanceState != null ){
             scrollPos = savedInstanceState.getInt(Constants.VISIBLE_ITEM_KEY);
+
+            if(this.getResources().getBoolean(R.bool.isTablet)) {
+                detail = (WorkoutPlanFragment)this.getActivity().getSupportFragmentManager().findFragmentById(R.id.detail);
+            }
         }
 
         layoutMgr = new LinearLayoutManager(getContext());
@@ -84,6 +88,7 @@ public class WorkoutFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.VISIBLE_ITEM_KEY, layoutMgr.findFirstCompletelyVisibleItemPosition());
+//        outState.putParcelable(Constants.FRAGMENT, );
     }
 
     public void launchNextScreen(int workoutId, String[] lifts){
@@ -126,7 +131,7 @@ public class WorkoutFragment extends Fragment {
 
         if(this.getResources().getBoolean(R.bool.isTablet)) {
             if (detail != null){
-                this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commit();
+                this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commitAllowingStateLoss();
             }
         }
     }
