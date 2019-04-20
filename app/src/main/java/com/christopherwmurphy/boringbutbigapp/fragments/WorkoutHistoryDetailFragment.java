@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -25,6 +26,8 @@ import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.HistoryDetailsTask;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEntity;
+
+import org.w3c.dom.Text;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -70,35 +73,24 @@ public class WorkoutHistoryDetailFragment extends Fragment {
         outState.putBundle(Constants.PARAMETERS, parameters);
     }
     public void createTable(List<WorkoutHistoryEntity> results){
-        LinearLayout.LayoutParams tableRowParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
 
         //Setup header
-        TableRow header = new TableRow(getContext());
-        header.setLayoutParams(tableRowParams);
-        header.setGravity(Gravity.CENTER);
-        header.setBackgroundResource(R.drawable.toolbar_rounded_edges);
-
-        TextView currentWorkout = new TextView(getContext());
-        currentWorkout.setText(new Timestamp( parameters.getLong(Constants.DATE)).toString());
-        currentWorkout.setTextSize(18.0f);
-
-        header.addView(currentWorkout);
-        detailHistory.addView(header);
+        TableRow headerRow = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_workout_history_header, null);
+        TextView hRow = (TextView) headerRow.getChildAt(0);
+        hRow.setText(new Timestamp( parameters.getLong(Constants.DATE)).toString());
+        detailHistory.addView(headerRow);
 
         //This is the body of the table
         for(WorkoutHistoryEntity w : results) {
-            TableRow tableRow = new TableRow(getContext());
-            tableRow.setLayoutParams(tableRowParams);
-            int cellWidth = detailHistory.getWidth() / 3;
 
-            TextView lift = new TextView(getContext());
+            TableRow row = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_workout_history, null);
+
+            TextView lift = (TextView) row.getChildAt(0);
+            TextView reps = (TextView) row.getChildAt(1);
+            TextView weight = (TextView) row.getChildAt(2);
+
             lift.setText(w.getExercise().getName());
-            lift.setGravity(Gravity.START);
-            lift.setPadding(20, 0, 0, 0);
 
-            TextView reps = new TextView(getContext());
             StringBuilder sb = new StringBuilder();
 
             if (w.getScheme().getSet().intValue() > 1) {
@@ -118,19 +110,12 @@ public class WorkoutHistoryDetailFragment extends Fragment {
                 sb.append(Constants.PERCENT_SIGN);
             }
             reps.setText(sb.toString());
-            reps.setGravity(Gravity.CENTER);
-
-            TextView weight = new TextView(getContext());
-
-            tableRow.addView(lift);
-            tableRow.addView(reps);
 
             if(w.getWeight() != null) {
                 weight.setText(w.getWeight().toString());
-                tableRow.addView(weight);
             }
 
-            detailHistory.addView(tableRow);
+            detailHistory.addView(row);
         }
     }
 }
