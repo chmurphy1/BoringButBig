@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="320dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
     android:layout_height="320dp"
-    android:background="#ffffff">
+    android:background="@drawable/popup_window_border">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="?attr/actionBarTheme">
+        android:layout_height="@dimen/dialog_header_height"
+        android:background="@drawable/toolbar_rounded_edges">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/popup_title"
-            android:gravity="center_vertical"/>
+            android:theme="@style/BigButBoringTheme.Popup.Title"/>
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="?attr/actionBarSize">
+        android:paddingTop="@dimen/dialog_header_height">
 
         <TextView
             android:layout_width="match_parent"
