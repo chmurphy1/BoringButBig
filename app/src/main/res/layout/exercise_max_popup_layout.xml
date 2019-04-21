@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="320dp"
-    android:layout_height="320dp"
+    android:layout_height="360dp"
     android:background="@drawable/popup_window_border">
 
     <android.support.v7.widget.Toolbar
@@ -30,25 +30,26 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="180dp"
             android:id="@+id/maxList"
             android:descendantFocusability="beforeDescendants"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:orientation="horizontal">
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/popup_button_padding">
             <Button
-                android:layout_width="160dp"
+                android:layout_width="156dp"
                 android:layout_height="45dp"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 android:id="@+id/save_button"
                 android:text="@string/save"/>
 
             <Button
-                android:layout_width="160dp"
+                android:layout_width="156dp"
                 android:layout_height="45dp"
-                android:layout_gravity="center"
+                android:layout_gravity="bottom"
                 android:id="@+id/cancel_button"
                 android:text="@string/cancel"/>
         </LinearLayout>
