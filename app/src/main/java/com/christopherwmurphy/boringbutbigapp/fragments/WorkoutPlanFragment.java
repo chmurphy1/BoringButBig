@@ -128,6 +128,7 @@ public class WorkoutPlanFragment extends Fragment {
 
                 final PopupWindow popup = new PopupWindow(customView, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 popup.setFocusable(true);
+                popup.setElevation(24);
                 popup.update();
                 popup.showAtLocation(workoutPlanView, Gravity.CENTER, 0, 0);
 
