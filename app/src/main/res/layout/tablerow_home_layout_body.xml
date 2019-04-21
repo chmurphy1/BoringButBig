@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:id="@+id/lift"
         android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingBottom="4dp"
         android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
 
     <TextView
@@ -18,6 +20,8 @@
         android:layout_height="match_parent"
         android:id="@+id/reps"
         android:layout_weight="1"
+        android:gravity="bottom"
+        android:paddingBottom="4dp"
         android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
 
     <EditText
@@ -27,4 +31,14 @@
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.EditText.Table.Body"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/units"
+        android:layout_weight="1"
+        android:theme="@style/BigButBoringTheme.Text.Table.Body"
+        android:gravity="bottom"
+        android:paddingBottom="4dp"
+        android:text="@string/lbs"/>
 </TableRow>

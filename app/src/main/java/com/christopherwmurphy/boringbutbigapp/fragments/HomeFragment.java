@@ -146,6 +146,7 @@ public class HomeFragment extends Fragment {
             TextView lift = (TextView) tableRow.getChildAt(0);
             TextView reps = (TextView) tableRow.getChildAt(1);
             EditText perscribedWeight = (EditText) tableRow.getChildAt(2);
+            TextView units =  (TextView) tableRow.getChildAt(3);
 
             if(w.getOptional()){
                 lift.setText(w.getExercise().getName()+"*");
@@ -172,6 +173,9 @@ public class HomeFragment extends Fragment {
                 sb.append(Constants.SPACE);
                 sb.append((w.getScheme().getPercentage() * 100));
                 sb.append(Constants.PERCENT_SIGN);
+            }
+            else{
+                units.setVisibility(View.INVISIBLE);
             }
             reps.setText(sb.toString());
 
