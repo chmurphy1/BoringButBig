@@ -71,15 +71,14 @@ public class ExerciseDetailFragment extends Fragment{
     public void startExerciseStepsObserver(){
         ExerciseStepsViewModel esvm = ViewModelProviders.of(this, new CustomViewModelFactory(this.getActivity().getApplication(), parameters))
                                                         .get(ExerciseStepsViewModel.class);
-
         esvm.getSteps().observe(this, new Observer<List<ExerciseStepsEntity>>() {
 
             @Override
             public void onChanged(@Nullable List<ExerciseStepsEntity> exerciseStepsEntities) {
                 StringBuilder sb = new StringBuilder();
-
+                int line_counter = 1;
                 for(ExerciseStepsEntity es : exerciseStepsEntities){
-                    sb.append(es.getStepText() + Constants.NEW_LINE);
+                    sb.append(line_counter++ + Constants.PERIOD + Constants.SPACE + es.getStepText() + Constants.NEW_LINE);
                 }
                 exerciseSteps.setText(sb);
             }

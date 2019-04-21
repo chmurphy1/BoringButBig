@@ -16,4 +16,5 @@ public class Constants {
     public static final String COMMA = ",";
     public static final String DATE = "DATE";
     public static final String DATE_FORMAT = "MMMM d, yyyy";
+    public static final String PERIOD = ".";
 }
