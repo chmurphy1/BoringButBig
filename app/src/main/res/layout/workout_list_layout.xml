@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="14dp"
         android:id="@+id/WorkoutCard"
-        android:clickable="true">
+        android:clickable="true"
+        app:cardUseCompatPadding="true"
+        android:elevation="@dimen/card_elevation"
+        android:layout_marginTop="@dimen/card_margin"
+        android:layout_marginRight="@dimen/card_margin"
+        android:layout_marginLeft="@dimen/card_margin">
 
         <TextView
             android:id="@+id/WorkoutName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textSize="18sp"/>
+            android:theme="@style/BigButBoringTheme.Text.CardView"/>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
