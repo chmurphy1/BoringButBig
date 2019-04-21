@@ -3,28 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/historyRow">>
+    android:id="@+id/historyRow"
+    android:theme="@style/BigButBoringTheme.TableRow">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/lift"
         android:layout_weight="1"
-        android:layout_gravity="center"/>
+        android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/reps"
         android:layout_weight="1"
-        android:layout_gravity="center"/>
+        android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/weight"
         android:layout_weight="1"
-        android:layout_gravity="center"
-        android:inputType="phone"
-        android:maxLength="4"/>
+        android:theme="@style/BigButBoringTheme.EditText.Table.Body"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 </TableRow>

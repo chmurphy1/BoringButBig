@@ -8,7 +8,25 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BigButBoringTheme.TableRow" parent="BigButBoringTheme">
+        <item name="android:paddingRight">@dimen/table_row_padding</item>
+        <item name="android:paddingLeft">@dimen/table_row_padding</item>
+    </style>
+
     <style name="BigButBoringTheme.Text.Base" parent="BigButBoringTheme">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BigButBoringTheme.Text.Table.Body" parent="BigButBoringTheme">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+    </style>
+
+    <style name="BigButBoringTheme.EditText.Table.Body" parent="BigButBoringTheme">
+        <item name="android:inputType">phone</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:maxLength">4</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 

@@ -21,8 +21,8 @@
             android:layout_height="40dp"
             android:id="@+id/optional"
             android:layout_marginLeft="16dp"
-            android:text="safdsd"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:theme="@style/BigButBoringTheme.Text.Base"/>
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
