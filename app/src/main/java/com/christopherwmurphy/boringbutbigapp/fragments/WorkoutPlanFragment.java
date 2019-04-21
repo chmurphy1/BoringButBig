@@ -40,6 +40,7 @@ import com.christopherwmurphy.boringbutbigapp.database.Utility.DbExecutor;
 import com.christopherwmurphy.boringbutbigapp.database.WorkoutDB;
 
 import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Timestamp;
@@ -62,6 +63,9 @@ public class WorkoutPlanFragment extends Fragment {
     @BindView(R.id.createWorkoutButton)
     Button workoutButton;
     View workoutPlanView;
+
+    @BindView(R.id.optional)
+    TextView optional;
 
     private CallbackFromWorkoutPlan wpCallback;
 
@@ -98,6 +102,7 @@ public class WorkoutPlanFragment extends Fragment {
         else{
             parameters = this.getArguments();
         }
+        optional.setText("* = "+getContext().getResources().getString(R.string.opt));
         setupExpandableListView();
     }
 
@@ -217,10 +222,10 @@ public class WorkoutPlanFragment extends Fragment {
                 ArrayList<String> header = new ArrayList<>();
                 HashMap<Integer, List<String>> rows = new HashMap<>();
                 ArrayList<String> list = new ArrayList<>();
+                boolean opt = false;
 
                 for(WorkoutPlanEntity entity : workoutPlanEntities){
                     String row = "";
-
                     if(week != entity.getWeek()){
                         header.add(getContext().getResources().getString(R.string.week)+ Constants.SPACE + week);
 
@@ -238,18 +243,24 @@ public class WorkoutPlanFragment extends Fragment {
                                 entity.getPlanId().toString());
                     }
 
-                    if(entity.getOptional()){
-                        row = getContext().getResources().getString(R.string.optional);
-                    }
-
                     if(entity.getScheme().getPercentage() == 0.0){
-                        row += Constants.SPACE + entity.getExercise().getName() + Constants.SPACE +
+                        row += Constants.SPACE + entity.getExercise().getName();
+
+                        if(entity.getOptional()){
+                            row +="*";
+                        }
+                        row += Constants.SPACE +
                                 entity.getScheme().getSet() + Constants.SPACE +
                                 Constants.X + Constants.SPACE +
                                 entity.getScheme().getReps();
                     }
                     else {
-                        row += entity.getExercise().getName() + Constants.SPACE +
+                        row += entity.getExercise().getName() ;
+
+                        if(entity.getOptional()){
+                            row +="*";
+                        }
+                        row += Constants.SPACE +
                                 entity.getScheme().getSet() + Constants.SPACE +
                                 Constants.X + Constants.SPACE +
                                 entity.getScheme().getReps() + Constants.SPACE +

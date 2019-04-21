@@ -7,20 +7,25 @@
 
     <ExpandableListView
         android:id="@+id/workoutPlanList"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:paddingBottom="40dp"
-        />
-
+        android:layout_height="match_parent"
+        android:paddingBottom="80dp"/>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/optional"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="top"/>
 
         <Button
             android:id="@+id/createWorkoutButton"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/my_workout" />
+            android:layout_height="40dp"
+            android:text="@string/my_workout"
+            android:layout_gravity="bottom"/>
     </FrameLayout>
 </FrameLayout>
