@@ -1,10 +1,16 @@
 package com.christopherwmurphy.boringbutbigapp.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -112,6 +118,7 @@ public class HomeFragment extends Fragment {
         Button okay = (Button) customView.findViewById(R.id.okay_button);
 
         final PopupWindow popup = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popup.setElevation(24);
         popup.showAtLocation(currentWorkoutPlan , Gravity.CENTER, 0, 0);
 
         okay.setOnClickListener(new View.OnClickListener() {
