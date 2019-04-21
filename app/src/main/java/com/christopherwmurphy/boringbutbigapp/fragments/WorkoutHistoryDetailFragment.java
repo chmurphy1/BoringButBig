@@ -99,6 +99,7 @@ public class WorkoutHistoryDetailFragment extends Fragment {
             TextView lift = (TextView) row.getChildAt(0);
             TextView reps = (TextView) row.getChildAt(1);
             TextView weight = (TextView) row.getChildAt(2);
+            TextView units = (TextView) row.getChildAt(3);
 
             if(w.getOptional()) {
                 lift.setText(w.getExercise().getName()+"*");
@@ -124,6 +125,9 @@ public class WorkoutHistoryDetailFragment extends Fragment {
                 sb.append(Constants.SPACE);
                 sb.append((w.getScheme().getPercentage() * 100));
                 sb.append(Constants.PERCENT_SIGN);
+            }
+            else{
+                units.setVisibility(View.INVISIBLE);
             }
             reps.setText(sb.toString());
 
