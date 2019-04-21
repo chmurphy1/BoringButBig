@@ -25,6 +25,13 @@
             android:layout_weight="1"/>
 
         <FrameLayout
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:id="@+id/divider"
+            android:background="@color/colorPrimaryDark"
+            android:visibility="invisible"/>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/detail"

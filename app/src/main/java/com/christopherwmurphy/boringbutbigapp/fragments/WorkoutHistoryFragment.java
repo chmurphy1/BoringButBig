@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.christopherwmurphy.boringbutbigapp.Adapters.WorkoutHistoryAdapter;
 import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutHistoryCallback;
@@ -97,6 +98,9 @@ public class WorkoutHistoryFragment extends Fragment {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
 
         if(isTablet){
+            FrameLayout divider = (FrameLayout) getActivity().findViewById(R.id.divider);
+            divider.setVisibility(View.VISIBLE);
+
             detail = new WorkoutHistoryDetailFragment();
 
             detail.setArguments(parms);
@@ -118,6 +122,9 @@ public class WorkoutHistoryFragment extends Fragment {
         if(this.getResources().getBoolean(R.bool.isTablet)) {
             if(detail != null) {
                 this.getActivity().getSupportFragmentManager().beginTransaction().remove(detail).commitAllowingStateLoss();
+
+                FrameLayout divider = (FrameLayout) getActivity().findViewById(R.id.divider);
+                divider.setVisibility(View.INVISIBLE);
             }
         }
     }
