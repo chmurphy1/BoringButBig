@@ -7,5 +7,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/groupTitle"/>
+        android:id="@+id/groupTitle"
+        android:theme="@style/BigButBoringTheme.TextView"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="40dp"/>
 </LinearLayout>
