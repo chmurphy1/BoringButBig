@@ -28,6 +28,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name ="BigButBoringTheme.Text.CardView" parent="BigButBoringTheme.Text.Base">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="BigButBoringTheme.Text.Table.Body" parent="BigButBoringTheme">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
