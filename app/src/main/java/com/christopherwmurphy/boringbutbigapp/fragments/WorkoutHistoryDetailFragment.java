@@ -43,6 +43,9 @@ public class WorkoutHistoryDetailFragment extends Fragment {
     @BindView(R.id.workoutHistoryDetailTable)
     TableLayout detailHistory;
 
+    @BindView(R.id.optional)
+    TextView optional;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View exerciseListView = inflater.inflate(R.layout.workout_history_detail_fragment, container,false);
         ButterKnife.bind(this, exerciseListView);
@@ -66,6 +69,8 @@ public class WorkoutHistoryDetailFragment extends Fragment {
                 createTable(results);
             }
         }).execute(parameters.getLong(Constants.DATE));
+
+        optional.setText("* = "+getContext().getResources().getString(R.string.opt));
     }
 
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -80,6 +85,8 @@ public class WorkoutHistoryDetailFragment extends Fragment {
         hRow.setText(new Timestamp( parameters.getLong(Constants.DATE)).toString());
         detailHistory.addView(headerRow);
 
+        boolean opt = false;
+
         //This is the body of the table
         for(WorkoutHistoryEntity w : results) {
 
@@ -89,8 +96,13 @@ public class WorkoutHistoryDetailFragment extends Fragment {
             TextView reps = (TextView) row.getChildAt(1);
             TextView weight = (TextView) row.getChildAt(2);
 
-            lift.setText(w.getExercise().getName());
-
+            if(w.getOptional()) {
+                lift.setText(w.getExercise().getName()+"*");
+                opt = true;
+            }
+            else{
+                lift.setText(w.getExercise().getName());
+            }
             StringBuilder sb = new StringBuilder();
 
             if (w.getScheme().getSet().intValue() > 1) {
@@ -116,6 +128,10 @@ public class WorkoutHistoryDetailFragment extends Fragment {
             }
 
             detailHistory.addView(row);
+        }
+
+        if(opt){
+            optional.setVisibility(View.VISIBLE);
         }
     }
 }
