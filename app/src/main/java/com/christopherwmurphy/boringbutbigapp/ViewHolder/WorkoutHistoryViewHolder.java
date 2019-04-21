@@ -7,7 +7,11 @@ import android.widget.TextView;
 
 import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutHistoryCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
+import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEntity;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +35,8 @@ public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
 
     public void bind(WorkoutHistoryEntity workout){
         this.workout = workout;
-        workoutDate.setText(workout.getDate().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
+        workoutDate.setText(sdf.format(workout.getDate()));
     }
 
     @OnClick(R.id.WorkoutHistoryCard)
