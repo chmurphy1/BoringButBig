@@ -7,4 +7,6 @@
     <dimen name="elevation">6dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
     <dimen name="card_margin">12dp</dimen>
+    <dimen name="textview_margin">12dp</dimen>
+    <dimen name="line_space">8dp</dimen>
 </resources>

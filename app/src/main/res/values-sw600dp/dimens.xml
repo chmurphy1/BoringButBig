@@ -5,4 +5,5 @@
     <dimen name="optional_textview_indent">24dp</dimen>
     <dimen name="button_margins">8dp</dimen>
     <dimen name="card_margin">24dp</dimen>
+    <dimen name="textview_margin">24dp</dimen>
 </resources>
