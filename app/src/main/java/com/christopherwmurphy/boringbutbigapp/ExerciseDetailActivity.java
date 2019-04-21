@@ -1,6 +1,7 @@
 package com.christopherwmurphy.boringbutbigapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -26,6 +27,12 @@ public class ExerciseDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_layout);
         ButterKnife.bind(this);
+
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if(!isTablet){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
 
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
