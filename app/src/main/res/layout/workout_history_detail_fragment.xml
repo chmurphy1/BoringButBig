@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:id="@+id/optional"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="@dimen/optional_textview_indent"
             android:visibility="invisible"/>
     </LinearLayout>
 </FrameLayout>
