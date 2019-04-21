@@ -111,4 +111,10 @@ public class ExerciseDetailFragment extends Fragment{
             }
         });
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        youTubePlayerFragment.onDestroy();
+    }
 }
