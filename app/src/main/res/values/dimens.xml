@@ -10,4 +10,5 @@
     <dimen name="textview_margin">12dp</dimen>
     <dimen name="line_space">8dp</dimen>
     <dimen name="dialog_header_height">40dp</dimen>
+    <dimen name="group_item_height">40dp</dimen>
 </resources>
