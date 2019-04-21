@@ -29,7 +29,9 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEnti
 
 import org.w3c.dom.Text;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -82,7 +84,9 @@ public class WorkoutHistoryDetailFragment extends Fragment {
         //Setup header
         TableRow headerRow = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_workout_history_header, null);
         TextView hRow = (TextView) headerRow.getChildAt(0);
-        hRow.setText(new Timestamp( parameters.getLong(Constants.DATE)).toString());
+        Date dt = new Date(parameters.getLong(Constants.DATE));
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT);
+        hRow.setText(sdf.format(dt));
         detailHistory.addView(headerRow);
 
         boolean opt = false;
