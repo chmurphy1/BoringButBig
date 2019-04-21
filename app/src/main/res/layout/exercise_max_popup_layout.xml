@@ -24,9 +24,10 @@
         android:paddingTop="@dimen/dialog_header_height">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:text="@string/popup_message"/>
+            android:text="@string/popup_message"
+            android:padding="4dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
