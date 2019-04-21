@@ -29,5 +29,6 @@
     <string name="workout_table_title">Today\'s Workout</string>
     <string name="complete">Complete Workout</string>
     <string name="numbers_only">Only numbers are allowed in the fields.</string>
+    <string name="opt">optional</string>
     <string name="day">Day</string>
 </resources>

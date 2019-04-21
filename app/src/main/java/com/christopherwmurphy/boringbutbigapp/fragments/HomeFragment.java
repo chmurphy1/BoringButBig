@@ -57,6 +57,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.complete)
     Button complete;
 
+    @BindView(R.id.optional)
+    TextView optional;
+
     private HomeCallback callback = new HomeCallback() {
 
         @Override
@@ -98,7 +101,7 @@ public class HomeFragment extends Fragment {
                 }
             }
         }).execute();
-
+        optional.setText("* = "+getContext().getResources().getString(R.string.opt));
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -121,6 +124,7 @@ public class HomeFragment extends Fragment {
 
     public void createTable(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight){
         TableRow headerRow = (TableRow) getActivity().getLayoutInflater().inflate(R.layout.tablerow_home_layout_header, null);
+        boolean opt = false;
 
         //Setup header
         TextView currentWorkout = (TextView) headerRow.getChildAt(0);
@@ -136,7 +140,13 @@ public class HomeFragment extends Fragment {
             TextView reps = (TextView) tableRow.getChildAt(1);
             EditText perscribedWeight = (EditText) tableRow.getChildAt(2);
 
-            lift.setText(w.getExercise().getName());
+            if(w.getOptional()){
+                lift.setText(w.getExercise().getName()+"*");
+                opt = true;
+            }
+            else {
+                lift.setText(w.getExercise().getName());
+            }
 
             StringBuilder sb = new StringBuilder();
 
@@ -191,6 +201,9 @@ public class HomeFragment extends Fragment {
             }
 
             workoutTable.addView(tableRow);
+        }
+        if(opt){
+            optional.setVisibility(View.VISIBLE);
         }
     }
 
