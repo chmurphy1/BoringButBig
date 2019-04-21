@@ -9,8 +9,6 @@
         android:layout_height="match_parent"
         android:id="@+id/header"
         android:layout_weight="1"
-        android:gravity="center"
-        android:background="@drawable/toolbar_rounded_edges"
-        android:textSize="18sp"/>
+        android:theme="@style/BigButBoringTheme.Text.Table.Header"/>
 
 </TableRow>
