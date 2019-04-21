@@ -31,5 +31,6 @@
         android:text="@string/complete"
         android:layout_gravity="bottom"
         android:visibility="gone"
-        android:layout_margin="@dimen/button_margins"/>
+        android:layout_margin="@dimen/button_margins"
+        android:elevation="@dimen/elevation"/>
 </FrameLayout>

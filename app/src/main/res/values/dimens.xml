@@ -4,4 +4,5 @@
     <dimen name="table_margins">8dp</dimen>
     <dimen name="optional_textview_indent">12dp</dimen>
     <dimen name="button_margins">4dp</dimen>
+    <dimen name="elevation">6dp</dimen>
 </resources>
