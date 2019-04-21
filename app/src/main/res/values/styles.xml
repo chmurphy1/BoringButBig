@@ -8,4 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BigButBoringTheme.Text.Base" parent="BigButBoringTheme">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="BigButBoringTheme.Toolbar" parent="BigButBoringTheme">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
 </resources>
