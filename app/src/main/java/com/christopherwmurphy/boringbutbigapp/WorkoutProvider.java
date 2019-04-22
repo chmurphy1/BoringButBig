@@ -38,7 +38,9 @@ public class WorkoutProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle widgetBundle = intent.getBundleExtra(Constants.WIDGET_BUNDLE);
-        wData = Parcels.unwrap(widgetBundle.getParcelable(Constants.DATA));
+        if(widgetBundle != null){
+            wData = Parcels.unwrap(widgetBundle.getParcelable(Constants.DATA));
+        }
         super.onReceive(context, intent);
     }
 
