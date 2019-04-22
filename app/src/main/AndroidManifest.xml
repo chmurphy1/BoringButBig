@@ -16,8 +16,8 @@
         android:theme="@style/BigButBoringTheme">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:configChanges="orientation">
+            android:configChanges="orientation"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -57,16 +57,24 @@
             android:name=".ExerciseDetailActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".MainActivity" />
-
         <activity
             android:name=".WorkoutPlanDetailActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"/>
-
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".WorkoutHistoryDetailActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
+
+        <receiver android:name=".WorkoutProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/workout_provider_info" />
+        </receiver>
     </application>
 
 </manifest>

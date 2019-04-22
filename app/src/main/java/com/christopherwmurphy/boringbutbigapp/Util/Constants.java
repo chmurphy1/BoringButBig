@@ -18,4 +18,6 @@ public class Constants {
     public static final String DATE_FORMAT = "MMMM d, yyyy";
     public static final String PERIOD = ".";
     public static final String INSTANTIATED = "INSTANTIATED";
+    public static final String WIDGET_BUNDLE = "WIDGET_BUNDLE";
+    public static final String DATA = "DATA";
 }

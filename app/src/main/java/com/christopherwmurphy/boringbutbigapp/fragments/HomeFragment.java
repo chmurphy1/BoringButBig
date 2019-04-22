@@ -1,10 +1,14 @@
 package com.christopherwmurphy.boringbutbigapp.fragments;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RemoteViews;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,10 +41,15 @@ import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.GenerateCurrentWorkoutTask;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.IsWorkoutDefined;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.OnWorkoutCompleteTask;
+import com.christopherwmurphy.boringbutbigapp.WorkoutProvider;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
+import com.christopherwmurphy.boringbutbigapp.widget.ParcelableData;
 
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,6 +66,7 @@ public class HomeFragment extends Fragment {
     private HashMap<Integer, Long> cWeight;
     String regex = "\\d+";
     Pattern pattern;
+    private HashMap<Integer, Long> calWeight;
 
     @BindView(R.id.workoutTable)
     TableLayout workoutTable;
@@ -76,7 +87,9 @@ public class HomeFragment extends Fragment {
         @Override
         public void callback(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight) {
             workout = todaysPlan;
+            calWeight = calculatedWeight;
             createTable(todaysPlan, calculatedWeight);
+            sendDataToWidget();
         }
     };
 
@@ -234,6 +247,55 @@ public class HomeFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.INSTANTIATED, ++instantiated);
+    }
+
+    private void sendDataToWidget(){
+        Intent intent = new Intent(getContext(), WorkoutProvider.class);
+        Bundle intentBundle = new Bundle();
+
+        List<ParcelableData> dataList = new ArrayList<>();
+        for(CurrentWorkoutPlanEntity c : workout){
+            ParcelableData data = new ParcelableData();
+            Long weight = calWeight.get(c.getSeqNum());
+
+            if(c.getOptional()){
+                data.setLift(c.getExercise().getName()+"*");
+            }
+            else {
+                data.setLift(c.getExercise().getName());
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            if(c.getScheme().getSet().intValue() > 1){
+                sb.append(c.getScheme().getSet());
+                sb.append(Constants.SPACE);
+                sb.append(Constants.X);
+                sb.append(Constants.SPACE);
+            }
+
+            sb.append(c.getScheme().getReps());
+
+            if(c.getScheme().getPercentage() > 0.0) {
+                sb.append(Constants.SPACE);
+                sb.append(Constants.AT);
+                sb.append(Constants.SPACE);
+                sb.append((c.getScheme().getPercentage() * 100));
+                sb.append(Constants.PERCENT_SIGN);
+            }
+
+            data.setReps(sb.toString());
+
+            data.setLift(c.getExercise().getName());
+            if(weight != null) {
+                data.setWeight(weight.toString());
+            }
+            dataList.add(data);
+        }
+
+        intentBundle.putParcelable(Constants.DATA, Parcels.wrap(dataList));
+        intent.putExtra(Constants.WIDGET_BUNDLE, intentBundle);
+        getContext().sendBroadcast(intent);
     }
 }
 
