@@ -69,6 +69,8 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.message)
     TextView message;
 
+    private int instantiated;
+
     private HomeCallback callback = new HomeCallback() {
 
         @Override
@@ -100,19 +102,27 @@ public class HomeFragment extends Fragment {
         optional.setText("* = "+getContext().getResources().getString(R.string.opt));
         super.onActivityCreated(savedInstanceState);
 
-        new IsWorkoutDefined(getContext(), new isDefinedCallback() {
-            @Override
-            public void callback(boolean isDefined) {
-                if(!isDefined){
-                    message.setVisibility(View.VISIBLE);
-                    complete.setVisibility(View.GONE);
-                }else{
-                    new GenerateCurrentWorkoutTask(getContext(), callback).execute();
-                    complete.setVisibility(View.VISIBLE);
-                    message.setVisibility(View.INVISIBLE);
+        setRetainInstance(true);
+
+        if(savedInstanceState != null){
+            instantiated = savedInstanceState.getInt(Constants.INSTANTIATED);
+        }
+
+        if(instantiated == 0) {
+            new IsWorkoutDefined(getContext(), new isDefinedCallback() {
+                @Override
+                public void callback(boolean isDefined) {
+                    if (!isDefined) {
+                        message.setVisibility(View.VISIBLE);
+                        complete.setVisibility(View.GONE);
+                    } else {
+                        new GenerateCurrentWorkoutTask(getContext(), callback).execute();
+                        complete.setVisibility(View.VISIBLE);
+                        message.setVisibility(View.INVISIBLE);
+                    }
                 }
-            }
-        }).execute();
+            }).execute();
+        }
     }
 
     public void createTable(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight){
@@ -218,6 +228,12 @@ public class HomeFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         homeCallback = (HomeFragmentCallback) getActivity();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(Constants.INSTANTIATED, ++instantiated);
     }
 }
 
