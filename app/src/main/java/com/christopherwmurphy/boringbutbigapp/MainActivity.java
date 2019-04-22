@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.christopherwmurphy.boringbutbigapp.Callbacks.CallbackFromWorkout;
 import com.christopherwmurphy.boringbutbigapp.fragments.ExerciseFragment;
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
             getSupportFragmentManager().beginTransaction().remove(fragment).commit();
 
             fragment = new HomeFragment();
+            setGone();
             getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment).commit();
         }
     };
@@ -80,6 +83,29 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         setupHome(false);
+        setGone();
+    }
+
+    public void setGone(){
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if(isTablet){
+            FrameLayout divider = (FrameLayout) findViewById(R.id.divider);
+            FrameLayout detail = (FrameLayout) findViewById(R.id.detail);
+
+            divider.setVisibility(View.GONE);
+            detail.setVisibility(View.GONE);
+        }
+    }
+
+    public void setVisible(){
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if(isTablet){
+            FrameLayout divider = (FrameLayout) findViewById(R.id.divider);
+            FrameLayout detail = (FrameLayout) findViewById(R.id.detail);
+
+            divider.setVisibility(View.INVISIBLE);
+            detail.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setupHome( boolean replace){
@@ -113,19 +139,24 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         switch (menuItem.getItemId()) {
             case R.id.nav_home :
                 fragment = new HomeFragment();
+                setGone();
                 break;
             case R.id.nav_plans:
                 fragment = new WorkoutFragment();
                 ((WorkoutFragment) fragment).setwCallback(wCallback);
+                setVisible();
                 break;
             case R.id.nav_history:
                 fragment = new WorkoutHistoryFragment();
+                setVisible();
                 break;
             case R.id.nav_movements:
                 fragment = new ExerciseFragment();
+                setVisible();
                 break;
             default:
                 fragment = new HomeFragment();
+                setGone();
         }
         mgr.beginTransaction().replace(R.id.content, fragment).commit();
     }
