@@ -66,6 +66,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.optional)
     TextView optional;
 
+    @BindView(R.id.message)
+    TextView message;
+
     private HomeCallback callback = new HomeCallback() {
 
         @Override
@@ -94,39 +97,22 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        optional.setText("* = "+getContext().getResources().getString(R.string.opt));
+        super.onActivityCreated(savedInstanceState);
 
         new IsWorkoutDefined(getContext(), new isDefinedCallback() {
             @Override
             public void callback(boolean isDefined) {
                 if(!isDefined){
-                    createPopup();
+                    message.setVisibility(View.VISIBLE);
                     complete.setVisibility(View.GONE);
                 }else{
                     new GenerateCurrentWorkoutTask(getContext(), callback).execute();
                     complete.setVisibility(View.VISIBLE);
+                    message.setVisibility(View.INVISIBLE);
                 }
             }
         }).execute();
-        optional.setText("* = "+getContext().getResources().getString(R.string.opt));
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    public void createPopup(){
-        LayoutInflater layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View customView = layoutInflater.inflate(R.layout.home_popup_layout,null);
-
-        Button okay = (Button) customView.findViewById(R.id.okay_button);
-
-        final PopupWindow popup = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popup.setElevation(24);
-        popup.showAtLocation(currentWorkoutPlan , Gravity.CENTER, 0, 0);
-
-        okay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popup.dismiss();
-            }
-        });
     }
 
     public void createTable(List<CurrentWorkoutPlanEntity> todaysPlan, HashMap<Integer, Long> calculatedWeight){
