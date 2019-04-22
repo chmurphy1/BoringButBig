@@ -138,25 +138,25 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
 
         switch (menuItem.getItemId()) {
             case R.id.nav_home :
-                fragment = new HomeFragment();
                 setGone();
+                fragment = new HomeFragment();
                 break;
             case R.id.nav_plans:
+                setVisible();
                 fragment = new WorkoutFragment();
                 ((WorkoutFragment) fragment).setwCallback(wCallback);
-                setVisible();
                 break;
             case R.id.nav_history:
-                fragment = new WorkoutHistoryFragment();
                 setVisible();
+                fragment = new WorkoutHistoryFragment();
                 break;
             case R.id.nav_movements:
-                fragment = new ExerciseFragment();
                 setVisible();
+                fragment = new ExerciseFragment();
                 break;
             default:
-                fragment = new HomeFragment();
                 setGone();
+                fragment = new HomeFragment();
         }
         mgr.beginTransaction().replace(R.id.content, fragment).commit();
     }
