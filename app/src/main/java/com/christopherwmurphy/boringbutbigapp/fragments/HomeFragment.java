@@ -213,6 +213,7 @@ public class HomeFragment extends Fragment {
                             s.clear();
                             s.append(newVal);
                         }
+                        sendDataToWdigetFromTable();
                     }
                 });
             }
@@ -249,8 +250,57 @@ public class HomeFragment extends Fragment {
         outState.putInt(Constants.INSTANTIATED, ++instantiated);
     }
 
+    private void sendDataToWdigetFromTable(){
+        Intent intent = new Intent(getContext(), WorkoutProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        List<ParcelableData> dataList = new ArrayList<>();
+        Bundle intentBundle = new Bundle();
+
+        int size = workoutTable.getChildCount();
+        for(int r = 1; r < size; r++){
+            Object oRow = workoutTable.getChildAt(r);
+
+            if(oRow instanceof TableRow){
+                TableRow row = (TableRow) oRow;
+                int rowSize = row.getChildCount();
+                ParcelableData data = new ParcelableData();
+
+                for(int c = 0; c < rowSize; c++){
+                    Object cell = row.getChildAt(c);
+
+                    if(cell instanceof EditText){
+                        EditText weight = (EditText) cell;
+                        if(weight.getText().toString() != null && !Constants.EMPTY.equals(weight.getText().toString())) {
+                            data.setWeight(weight.getText().toString());
+                        }
+                    }
+                    else if(cell instanceof TextView){
+                        TextView tmp = (TextView) cell;
+
+                        if(c == 0){
+                            data.setLift(tmp.getText().toString());
+                        }else if(c == 1){
+                            data.setReps(tmp.getText().toString());
+                        }
+                    }
+                }
+                dataList.add(data);
+            }
+        }
+
+        intentBundle.putParcelable(Constants.DATA, Parcels.wrap(dataList));
+        intent.putExtra(Constants.WIDGET_BUNDLE, intentBundle);
+
+        int[] ids = AppWidgetManager.getInstance(getContext()).getAppWidgetIds(new ComponentName(getContext(), WorkoutProvider.class));
+        if(ids != null && ids.length > 0) {
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            getContext().sendBroadcast(intent);
+        }
+    }
+
     private void sendDataToWidget(){
         Intent intent = new Intent(getContext(), WorkoutProvider.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         Bundle intentBundle = new Bundle();
 
         List<ParcelableData> dataList = new ArrayList<>();
@@ -295,7 +345,12 @@ public class HomeFragment extends Fragment {
 
         intentBundle.putParcelable(Constants.DATA, Parcels.wrap(dataList));
         intent.putExtra(Constants.WIDGET_BUNDLE, intentBundle);
-        getContext().sendBroadcast(intent);
+
+        int[] ids = AppWidgetManager.getInstance(getContext()).getAppWidgetIds(new ComponentName(getContext(), WorkoutProvider.class));
+        if(ids != null && ids.length > 0) {
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+            getContext().sendBroadcast(intent);
+        }
     }
 }
 

@@ -35,7 +35,6 @@ public class WorkoutProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Bundle widgetBundle = intent.getBundleExtra(Constants.WIDGET_BUNDLE);
