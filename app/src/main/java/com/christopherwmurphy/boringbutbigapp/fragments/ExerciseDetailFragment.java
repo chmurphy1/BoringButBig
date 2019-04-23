@@ -17,8 +17,11 @@ import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseStepsViewModel;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseVideoViewModel;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseStepsEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseVideosEntity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
@@ -36,6 +39,8 @@ public class ExerciseDetailFragment extends Fragment{
     private Bundle parameters;
     YouTubePlayerSupportFragment youTubePlayerFragment;
 
+    private Tracker mTracker;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View exerciseDetailView = inflater.inflate(R.layout.exercise_detail_fragment, container,false);
 
@@ -51,12 +56,21 @@ public class ExerciseDetailFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         if(savedInstanceState != null){
             parameters = savedInstanceState.getBundle(Constants.PARAMETERS);
         }
         else{
             parameters = this.getArguments();
         }
+
+        mTracker.setScreenName("Exercise Detail Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Exercise Detail Fragment")
+                .setAction("OnActivityCreated")
+                .build());
 
         startExerciseStepsObserver();
         startExerciseVideoObserver();

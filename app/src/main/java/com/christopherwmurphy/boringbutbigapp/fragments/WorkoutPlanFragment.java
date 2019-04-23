@@ -32,12 +32,15 @@ import com.christopherwmurphy.boringbutbigapp.Util.Task.TaskResults.ExerciseMaxR
 import com.christopherwmurphy.boringbutbigapp.ViewHolder.ExerciseMaxViewHolder;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.Factory.CustomViewModelFactory;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutPlanViewModel;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Utility.DbExecutor;
 import com.christopherwmurphy.boringbutbigapp.database.WorkoutDB;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
@@ -66,6 +69,8 @@ public class WorkoutPlanFragment extends Fragment {
 
     @BindView(R.id.optional)
     TextView optional;
+
+    private Tracker mTracker;
 
     private CallbackFromWorkoutPlan wpCallback;
 
@@ -96,12 +101,22 @@ public class WorkoutPlanFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         if(savedInstanceState != null){
             parameters = savedInstanceState.getBundle(Constants.PARAMETERS);
         }
         else{
             parameters = this.getArguments();
         }
+
+        mTracker.setScreenName("Workout Plan Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Workout Plan Fragment")
+                .setAction("OnActivityCreated")
+                .build());
+
         optional.setText("* = "+getContext().getResources().getString(R.string.opt));
         setupExpandableListView();
     }

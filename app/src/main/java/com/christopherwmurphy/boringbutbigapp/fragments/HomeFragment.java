@@ -29,8 +29,11 @@ import com.christopherwmurphy.boringbutbigapp.Util.Task.GenerateCurrentWorkoutTa
 import com.christopherwmurphy.boringbutbigapp.Util.Task.IsWorkoutDefined;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.OnWorkoutCompleteTask;
 import com.christopherwmurphy.boringbutbigapp.WorkoutProvider;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.widget.ParcelableData;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.parceler.Parcels;
 
@@ -52,6 +55,7 @@ public class HomeFragment extends Fragment {
     String regex = "\\d+";
     Pattern pattern;
     private HashMap<Integer, Long> calWeight;
+    private Tracker mTracker;
 
     @BindView(R.id.workoutTable)
     TableLayout workoutTable;
@@ -107,6 +111,9 @@ public class HomeFragment extends Fragment {
         }
 
         if(instantiated == 0) {
+            AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+            mTracker = application.getDefaultTracker();
+
             new IsWorkoutDefined(getContext(), new isDefinedCallback() {
                 @Override
                 public void callback(boolean isDefined) {
@@ -135,6 +142,13 @@ public class HomeFragment extends Fragment {
                     }
                 }
             }).execute();
+
+            mTracker.setScreenName("Home Fragment");
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Home Fragment")
+                    .setAction("OnActivityCreated")
+                    .build());
+
         }
     }
 

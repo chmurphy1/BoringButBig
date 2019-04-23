@@ -21,7 +21,10 @@ import com.christopherwmurphy.boringbutbigapp.ExerciseDetailActivity;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.ExerciseViewModel;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class ExerciseFragment extends Fragment {
     @BindView(R.id.exerciseList)
     RecyclerView exerciseRecyclerView;
 
+    private Tracker mTracker;
     private ExerciseDetailFragment detail;
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
@@ -57,6 +61,8 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
 
         if(savedInstanceState != null ){
             scrollPos = savedInstanceState.getInt(Constants.VISIBLE_ITEM_KEY);
@@ -65,6 +71,13 @@ public class ExerciseFragment extends Fragment {
                 detail = (ExerciseDetailFragment)this.getActivity().getSupportFragmentManager().findFragmentById(R.id.detail);
             }
         }
+
+
+        mTracker.setScreenName("Exercise Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Exercise Fragment")
+                .setAction("OnActivityCreated")
+                .build());
 
         layoutMgr = new LinearLayoutManager(getContext());
         exerciseRecyclerView.setLayoutManager(layoutMgr);

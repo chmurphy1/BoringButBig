@@ -48,4 +48,5 @@ dependencies {
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
     implementation 'org.parceler:parceler-api:1.1.11'
     annotationProcessor 'org.parceler:parceler:1.1.11'
+    implementation 'com.google.android.gms:play-services-analytics:10.2.4'
 }

@@ -25,7 +25,10 @@ import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutHistoryCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.Util.Task.HistoryDetailsTask;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEntity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import org.w3c.dom.Text;
 
@@ -48,6 +51,8 @@ public class WorkoutHistoryDetailFragment extends Fragment {
     @BindView(R.id.optional)
     TextView optional;
 
+    private Tracker mTracker;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View exerciseListView = inflater.inflate(R.layout.workout_history_detail_fragment, container,false);
         ButterKnife.bind(this, exerciseListView);
@@ -59,12 +64,22 @@ public class WorkoutHistoryDetailFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         if(savedInstanceState != null){
             parameters = savedInstanceState.getBundle(Constants.PARAMETERS);
         }
         else{
             parameters = this.getArguments();
         }
+
+        mTracker.setScreenName("Workout History Detail Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Workout History Detail Fragment")
+                .setAction("OnActivityCreated")
+                .build());
+
         new HistoryDetailsTask(getContext(), new HistoryDetailCallback() {
             @Override
             public void callback(List<WorkoutHistoryEntity> results) {

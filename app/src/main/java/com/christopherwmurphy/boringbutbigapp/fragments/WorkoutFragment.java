@@ -22,7 +22,10 @@ import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutViewModel;
 import com.christopherwmurphy.boringbutbigapp.WorkoutPlanDetailActivity;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,8 @@ public class WorkoutFragment extends Fragment {
     private WorkoutAdapter adapter;
     private WorkoutPlanFragment detail;
     private CallbackFromWorkout wCallback;
+
+    private Tracker mTracker;
 
     private WorkoutCallback callback = new WorkoutCallback() {
         @Override
@@ -72,6 +77,9 @@ public class WorkoutFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         if(savedInstanceState != null ){
             scrollPos = savedInstanceState.getInt(Constants.VISIBLE_ITEM_KEY);
 
@@ -79,6 +87,12 @@ public class WorkoutFragment extends Fragment {
                 detail = (WorkoutPlanFragment)this.getActivity().getSupportFragmentManager().findFragmentById(R.id.detail);
             }
         }
+
+        mTracker.setScreenName("Workout Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Workout Fragment")
+                .setAction("OnActivityCreated")
+                .build());
 
         layoutMgr = new LinearLayoutManager(getContext());
         workoutRecyclerView.setLayoutManager(layoutMgr);

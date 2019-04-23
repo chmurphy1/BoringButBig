@@ -20,7 +20,10 @@ import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.Util.Constants;
 import com.christopherwmurphy.boringbutbigapp.ViewModels.WorkoutHistoryViewModel;
 import com.christopherwmurphy.boringbutbigapp.WorkoutHistoryDetailActivity;
+import com.christopherwmurphy.boringbutbigapp.analytics.AnalyticsApplication;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutHistoryEntity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -37,6 +40,7 @@ public class WorkoutHistoryFragment extends Fragment {
     private LinearLayoutManager layoutMgr;
     private int scrollPos;
     private WorkoutHistoryAdapter adapter;
+    private Tracker mTracker;
     private WorkoutHistoryCallback callback = new WorkoutHistoryCallback() {
         @Override
         public void callback(Timestamp date) {
@@ -58,6 +62,9 @@ public class WorkoutHistoryFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
         if(savedInstanceState != null ){
             scrollPos = savedInstanceState.getInt(Constants.VISIBLE_ITEM_KEY);
 
@@ -65,6 +72,12 @@ public class WorkoutHistoryFragment extends Fragment {
                 detail = (WorkoutHistoryDetailFragment)this.getActivity().getSupportFragmentManager().findFragmentById(R.id.detail);
             }
         }
+
+        mTracker.setScreenName("Workout History Fragment");
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Workout History Fragment")
+                .setAction("OnActivityCreated")
+                .build());
 
         layoutMgr = new LinearLayoutManager(getContext());
         workoutHistoryRecyclerView.setLayoutManager(layoutMgr);
