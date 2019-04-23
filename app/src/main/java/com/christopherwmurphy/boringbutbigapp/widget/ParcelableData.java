@@ -8,9 +8,9 @@ import org.parceler.ParcelConstructor;
 @Parcel(Parcel.Serialization.BEAN)
 public class ParcelableData {
 
-    String lift;
-    String reps;
-    String weight;
+    private String lift;
+    private String reps;
+    private String weight;
 
     public ParcelableData(){
         this.lift = Constants.EMPTY;

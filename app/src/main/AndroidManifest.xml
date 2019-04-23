@@ -75,6 +75,11 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/workout_provider_info" />
         </receiver>
+
+        <service
+            android:name=".widget.WorkoutProviderService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>
