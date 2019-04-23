@@ -1,5 +1,6 @@
 package com.christopherwmurphy.boringbutbigapp;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -62,6 +63,9 @@ public class WorkoutProvider extends AppWidgetProvider {
                 remoteViews.setViewVisibility(R.id.widget_button, View.VISIBLE);
                 remoteViews.setViewVisibility(R.id.appwidget_text, View.GONE);
 
+                Intent intent = new Intent(context, MainActivity.class);
+                PendingIntent mainIntent = PendingIntent.getActivity(context, 0, intent, 0);
+                remoteViews.setOnClickPendingIntent(R.id.widget_button, mainIntent);
             }
 
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);
