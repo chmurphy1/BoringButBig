@@ -20,4 +20,6 @@ public class Constants {
     public static final String INSTANTIATED = "INSTANTIATED";
     public static final String WIDGET_BUNDLE = "WIDGET_BUNDLE";
     public static final String DATA = "DATA";
+    public static final String SHOW_MESSAGE = "SHOW_MESSAGE";
+    public static final String RANDOM = "RANDOM";
 }

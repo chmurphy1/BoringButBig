@@ -4,30 +4,17 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v4.view.ViewCompat;
 import android.text.Editable;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RemoteViews;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -45,9 +32,7 @@ import com.christopherwmurphy.boringbutbigapp.WorkoutProvider;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.CurrentWorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.widget.ParcelableData;
 
-import org.parceler.Parcel;
 import org.parceler.Parcels;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,6 +113,21 @@ public class HomeFragment extends Fragment {
                     if (!isDefined) {
                         message.setVisibility(View.VISIBLE);
                         complete.setVisibility(View.GONE);
+
+                        //Tell it to show a message saying something about no
+                        //workouts being selected
+                        Intent intent = new Intent(getContext(), WorkoutProvider.class);
+                        Bundle intentBundle = new Bundle();
+
+                        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                        intentBundle.putBoolean(Constants.SHOW_MESSAGE, true);
+                        intent.putExtra(Constants.WIDGET_BUNDLE, intentBundle);
+
+                        int[] ids = AppWidgetManager.getInstance(getContext()).getAppWidgetIds(new ComponentName(getContext(), WorkoutProvider.class));
+                        if(ids != null && ids.length > 0) {
+                            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                            getContext().sendBroadcast(intent);
+                        }
                     } else {
                         new GenerateCurrentWorkoutTask(getContext(), callback).execute();
                         complete.setVisibility(View.VISIBLE);
