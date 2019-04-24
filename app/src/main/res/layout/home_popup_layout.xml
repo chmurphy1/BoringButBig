@@ -27,8 +27,8 @@
             android:layout_height="wrap_content"
             android:text="@string/no_workout_msg"
             android:theme="@style/BigButBoringTheme.TextView"
-            android:layout_marginRight="@dimen/textview_margin"
-            android:layout_marginLeft="@dimen/textview_margin"
+            android:layout_marginEnd="@dimen/textview_margin"
+            android:layout_marginStart="@dimen/textview_margin"
             android:layout_marginTop="@dimen/textview_header_margin"
             android:layout_gravity="top"/>
 

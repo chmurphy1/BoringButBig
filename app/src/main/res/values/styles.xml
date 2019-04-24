@@ -9,8 +9,8 @@
     </style>
 
     <style name="BigButBoringTheme.TableRow" parent="BigButBoringTheme">
-        <item name="android:paddingRight">@dimen/table_row_padding</item>
-        <item name="android:paddingLeft">@dimen/table_row_padding</item>
+        <item name="android:paddingEnd">@dimen/table_row_padding</item>
+        <item name="android:paddingStart">@dimen/table_row_padding</item>
     </style>
 
     <style name="BigButBoringTheme.TableRow.History" parent="BigButBoringTheme.TableRow">
@@ -26,6 +26,7 @@
     <style name="BigButBoringTheme.Text.Base" parent="BigButBoringTheme">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/black</item>
+        <item name="android:textDirection">anyRtl</item>
     </style>
 
     <style name="BigButBoringTheme.TextView" parent="BigButBoringTheme.Text.Base">
@@ -45,6 +46,7 @@
     <style name="BigButBoringTheme.Text.Table.Body" parent="BigButBoringTheme">
         <item name="android:gravity">center_vertical</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1</item>
+        <item name="android:textDirection">anyRtl</item>
     </style>
 
     <style name="BigButBoringTheme.EditText.Table.Body" parent="BigButBoringTheme">
@@ -60,6 +62,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textDirection">anyRtl</item>
     </style>
 
     <style name="BigButBoringTheme.Popup.Title" parent="BigButBoringTheme.Text.Base">

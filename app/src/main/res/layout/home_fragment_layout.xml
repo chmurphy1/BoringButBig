@@ -27,9 +27,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/optional"
-                android:layout_marginLeft="@dimen/optional_textview_indent"
+                android:layout_marginStart="@dimen/optional_textview_indent"
                 android:visibility="invisible"
-                android:theme="@style/BigButBoringTheme.Text.Base"/>
+                android:theme="@style/BigButBoringTheme.Text.Base"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"/>
         </LinearLayout>
 
         <TextView

@@ -32,6 +32,8 @@
             android:id="@+id/tada"
             android:theme="@style/BigButBoringTheme.TextView"
             android:layout_margin="@dimen/textview_margin"
-            android:lineSpacingExtra="@dimen/line_space" />
+            android:lineSpacingExtra="@dimen/line_space"
+            android:textAlignment="viewStart"
+            />
     </LinearLayout>
 </LinearLayout>
