@@ -39,6 +39,8 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseMaxEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 import com.christopherwmurphy.boringbutbigapp.database.Utility.DbExecutor;
 import com.christopherwmurphy.boringbutbigapp.database.WorkoutDB;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -69,6 +71,9 @@ public class WorkoutPlanFragment extends Fragment {
 
     @BindView(R.id.optional)
     TextView optional;
+
+    @BindView(R.id.workoutAd)
+    AdView workoutAd;
 
     private Tracker mTracker;
 
@@ -103,6 +108,11 @@ public class WorkoutPlanFragment extends Fragment {
 
         AnalyticsApplication application = (AnalyticsApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        workoutAd.loadAd(adRequest);
 
         if(savedInstanceState != null){
             parameters = savedInstanceState.getBundle(Constants.PARAMETERS);

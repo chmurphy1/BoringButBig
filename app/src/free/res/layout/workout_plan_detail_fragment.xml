@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:paddingTop="?attr/actionBarSize">
 
     <ExpandableListView
         android:id="@+id/workoutPlanList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="80dp"
+        android:paddingBottom="120dp"
         android:layout_margin="@dimen/table_row_padding"/>
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/optional"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="25dp"
             android:theme="@style/BigButBoringTheme.TextView"
             android:layout_marginStart="@dimen/textview_margin"
+            android:paddingBottom="4dp"
             android:textAlignment="viewStart"/>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/workoutAd"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner"/>
 
         <Button
             android:id="@+id/createWorkoutButton"
@@ -32,5 +44,5 @@
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/button_margins"
             android:elevation="@dimen/elevation"/>
-    </FrameLayout>
+    </LinearLayout>
 </FrameLayout>

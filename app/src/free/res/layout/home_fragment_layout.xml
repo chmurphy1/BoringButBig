@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey">
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="?attr/actionBarSize"
-        android:layout_marginRight="@dimen/frame_layout_padding"
         android:layout_marginLeft="@dimen/frame_layout_padding"
+        android:layout_marginRight="@dimen/frame_layout_padding"
+        android:layout_weight="1"
         android:background="@color/white"
-        android:layout_weight="1">
+        android:paddingTop="?attr/actionBarSize">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TableLayout
                 android:id="@+id/workoutTable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/popup_window_border"
-                android:layout_marginTop="@dimen/table_margins"
                 android:layout_marginStart="@dimen/table_margins"
-                android:layout_marginEnd="@dimen/table_margins"/>
+                android:layout_marginTop="@dimen/table_margins"
+                android:layout_marginEnd="@dimen/table_margins"
+                android:background="@drawable/popup_window_border" />
+
             <TextView
+                android:id="@+id/optional"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/optional"
-                android:layout_marginStart="@dimen/optional_textview_indent"
-                android:visibility="invisible"
-                android:theme="@style/BigButBoringTheme.Text.Base"
                 android:layout_gravity="start"
-                android:textAlignment="viewStart"/>
+                android:layout_marginStart="@dimen/optional_textview_indent"
+                android:textAlignment="viewStart"
+                android:theme="@style/BigButBoringTheme.Text.Base"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/message"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
             android:layout_margin="@dimen/textview_margin"
+            android:lineSpacingExtra="@dimen/line_space"
             android:text="@string/no_workout_msg"
-            android:theme="@style/BigButBoringTheme.Text.Base"
-            android:visibility="invisible"
             android:textSize="16sp"
-            android:lineSpacingExtra="@dimen/line_space"/>
+            android:theme="@style/BigButBoringTheme.Text.Base"
+            android:visibility="invisible" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/homeAd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="bottom|center"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner"
+            android:layout_marginBottom="70dp"/>
 
         <Button
+            android:id="@+id/complete"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:id="@+id/complete"
-            android:text="@string/complete"
             android:layout_gravity="bottom"
-            android:visibility="gone"
             android:layout_margin="@dimen/button_margins"
-            android:elevation="@dimen/elevation"/>
+            android:elevation="@dimen/elevation"
+            android:text="@string/complete"
+            android:visibility="gone" />
     </FrameLayout>
 </FrameLayout>

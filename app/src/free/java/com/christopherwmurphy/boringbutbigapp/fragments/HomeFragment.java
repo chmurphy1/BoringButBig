@@ -47,6 +47,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 public class HomeFragment extends Fragment {
 
     private View currentWorkoutPlan;
@@ -68,6 +71,9 @@ public class HomeFragment extends Fragment {
 
     @BindView(R.id.message)
     TextView message;
+
+    @BindView(R.id.homeAd)
+    AdView homeAd;
 
     private int instantiated;
 
@@ -105,6 +111,11 @@ public class HomeFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         setRetainInstance(true);
+
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        homeAd.loadAd(adRequest);
 
         if(savedInstanceState != null){
             instantiated = savedInstanceState.getInt(Constants.INSTANTIATED);
