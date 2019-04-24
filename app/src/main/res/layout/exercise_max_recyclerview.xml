@@ -24,9 +24,9 @@
                 android:layout_height="match_parent"
                 android:theme="@style/BigButBoringTheme.TextView"
                 android:textSize="14sp"
-                android:gravity="bottom"
                 android:paddingBottom="4dp"
                 android:paddingStart="4dp"
+                android:paddingTop="11dp"
                 android:textAlignment="viewStart"/>
             <EditText
                 android:layout_width="70dp"
@@ -36,19 +36,19 @@
                 android:focusable="true"
                 android:theme="@style/BigButBoringTheme.EditText.Table.Body"
                 android:textSize="14sp"
-                android:gravity="bottom"
                 android:textAlignment="viewStart"/>
+
             <TextView
+                android:id="@+id/units"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
-                android:id="@+id/units"
-                android:text="@string/lbs"
-                android:theme="@style/BigButBoringTheme.TextView"
-                android:textSize="14sp"
-                android:gravity="bottom"
                 android:paddingStart="4dp"
                 android:paddingBottom="4dp"
-                android:textAlignment="viewStart"/>
+                android:text="@string/lbs"
+                android:paddingTop="11dp"
+                android:textAlignment="viewStart"
+                android:textSize="14sp"
+                android:theme="@style/BigButBoringTheme.TextView" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

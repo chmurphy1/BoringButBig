@@ -20,7 +20,6 @@
             android:id="@+id/optional"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:layout_gravity="top"
             android:theme="@style/BigButBoringTheme.TextView"
             android:layout_marginStart="@dimen/textview_margin"
             android:textAlignment="viewStart"/>
