@@ -6,6 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import com.christopherwmurphy.boringbutbigapp.JsonUtil.Model.Workout;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutPlanEntity;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface WorkoutPlanDao {
 
     @Query("select * from workout_plan where workout_id = :id")
     List<WorkoutPlanEntity> getAllWorkoutPlanById(int id);
+
+    @Query("delete from workout_plan where week = :week and plan_id = :planId and seq_num = :seqNum and workout_id = :workoutId")
+    public void delete(int week, int planId, int seqNum, int workoutId);
 }

@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "workout",
         indices = {@Index(value = {"seq_num"}),
                    @Index(value = {"workout_id"})})
@@ -102,5 +104,38 @@ public class WorkoutEntity {
 
     public void setIncrements(String increments) {
         this.increments = increments;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkoutEntity that = (WorkoutEntity) o;
+        return Objects.equals(workoutId, that.workoutId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(language, that.language) &&
+                Objects.equals(seqNum, that.seqNum) &&
+                Objects.equals(period, that.period) &&
+                Objects.equals(increments, that.increments) &&
+                Objects.equals(lifts, that.lifts);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(workoutId, name, language, seqNum, period, increments, lifts);
+    }
+
+    @Override
+    public String toString() {
+        return "WorkoutEntity{" +
+                "workoutId=" + workoutId +
+                ", name='" + name + '\'' +
+                ", language='" + language + '\'' +
+                ", seqNum=" + seqNum +
+                ", period=" + period +
+                ", increments='" + increments + '\'' +
+                ", lifts='" + lifts + '\'' +
+                '}';
     }
 }

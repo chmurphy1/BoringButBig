@@ -6,6 +6,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.support.annotation.NonNull;
 
+import java.util.Objects;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "exercise_steps",
@@ -72,5 +74,32 @@ public class ExerciseStepsEntity {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExerciseStepsEntity that = (ExerciseStepsEntity) o;
+        return Objects.equals(exerciseId, that.exerciseId) &&
+                Objects.equals(stepSeq, that.stepSeq) &&
+                Objects.equals(stepText, that.stepText) &&
+                Objects.equals(language, that.language);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(exerciseId, stepSeq, stepText, language);
+    }
+
+    @Override
+    public String toString() {
+        return "ExerciseStepsEntity{" +
+                "exerciseId=" + exerciseId +
+                ", stepSeq=" + stepSeq +
+                ", stepText='" + stepText + '\'' +
+                ", language='" + language + '\'' +
+                '}';
     }
 }

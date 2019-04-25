@@ -7,6 +7,8 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.support.annotation.NonNull;
 
+import java.util.Objects;
+
 import static android.arch.persistence.room.ForeignKey.SET_NULL;
 
 @Entity(tableName = "workout_plan",
@@ -142,5 +144,42 @@ public class WorkoutPlanEntity {
 
     public void setExercise(ExerciseEntity exercise) {
         this.exercise = exercise;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkoutPlanEntity that = (WorkoutPlanEntity) o;
+        return Objects.equals(scheme, that.scheme) &&
+                Objects.equals(exercise, that.exercise) &&
+                Objects.equals(week, that.week) &&
+                Objects.equals(planId, that.planId) &&
+                Objects.equals(seqNum, that.seqNum) &&
+                Objects.equals(exerciseId, that.exerciseId) &&
+                Objects.equals(setId, that.setId) &&
+                Objects.equals(workoutId, that.workoutId) &&
+                Objects.equals(optional, that.optional);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(scheme, exercise, week, planId, seqNum, exerciseId, setId, workoutId, optional);
+    }
+
+    @Override
+    public String toString() {
+        return "WorkoutPlanEntity{" +
+                "scheme=" + scheme +
+                ", exercise=" + exercise +
+                ", week=" + week +
+                ", planId=" + planId +
+                ", seqNum=" + seqNum +
+                ", exerciseId=" + exerciseId +
+                ", setId=" + setId +
+                ", workoutId=" + workoutId +
+                ", optional=" + optional +
+                '}';
     }
 }

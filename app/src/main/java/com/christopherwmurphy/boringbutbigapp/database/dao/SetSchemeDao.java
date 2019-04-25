@@ -21,4 +21,7 @@ public interface SetSchemeDao {
 
     @Query("Select * from set_scheme")
     List<SetSchemeEntity> getAllSchemes();
+
+    @Query("delete from set_scheme where set_id = :id")
+    void delete(int id);
 }

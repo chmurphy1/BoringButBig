@@ -5,6 +5,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity(tableName = "set_scheme",
         indices = {@Index(value = {"set_id"}, unique = true)})
 public class SetSchemeEntity {
@@ -62,5 +64,32 @@ public class SetSchemeEntity {
 
     public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SetSchemeEntity that = (SetSchemeEntity) o;
+        return Objects.equals(setId, that.setId) &&
+                Objects.equals(set, that.set) &&
+                Objects.equals(reps, that.reps) &&
+                Objects.equals(percentage, that.percentage);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(setId, set, reps, percentage);
+    }
+
+    @Override
+    public String toString() {
+        return "SetSchemeEntity{" +
+                "setId=" + setId +
+                ", set=" + set +
+                ", reps=" + reps +
+                ", percentage=" + percentage +
+                '}';
     }
 }

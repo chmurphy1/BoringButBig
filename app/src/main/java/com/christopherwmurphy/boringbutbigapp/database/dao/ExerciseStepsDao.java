@@ -24,4 +24,7 @@ public interface ExerciseStepsDao {
 
     @Query("Select * from exercise_steps")
     List<ExerciseStepsEntity> getAllSteps();
+
+    @Query("delete from exercise_steps where exercise_id = :exerciseId and step_seq = :stepSeq")
+    void delete(int exerciseId, int stepSeq);
 }

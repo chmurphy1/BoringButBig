@@ -27,4 +27,7 @@ public interface WorkoutDao {
 
     @Query("select * from workout where workout_id = :id")
     WorkoutEntity getWorkouById(int id);
+
+    @Query("delete from workout where workout_id = :id")
+    void delete(int id);
 }

@@ -30,4 +30,7 @@ public interface ExerciseDao {
 
     @Query("Select * FROM exercise where id in(:list)")
     List<ExerciseEntity> getListOfExercisesInList(List<Integer> list);
+
+    @Query("delete from exercise where id =:id")
+    void delete(int id);
 }

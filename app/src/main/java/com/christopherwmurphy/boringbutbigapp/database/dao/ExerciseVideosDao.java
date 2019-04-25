@@ -24,4 +24,7 @@ public interface ExerciseVideosDao {
 
     @Query("select * from exercise_videos")
     List<ExerciseVideosEntity> getAllVideos();
+
+    @Query("delete from exercise_videos where id = :id")
+    void delete(int id);
 }
