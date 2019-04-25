@@ -43,13 +43,6 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/popup_button_padding">
-            <Button
-                android:layout_width="156dp"
-                android:layout_height="45dp"
-                android:layout_gravity="bottom"
-                android:id="@+id/save_button"
-                android:text="@string/save"
-                android:contentDescription="@string/save"/>
 
             <Button
                 android:layout_width="156dp"
@@ -58,6 +51,14 @@
                 android:id="@+id/cancel_button"
                 android:text="@string/cancel"
                 android:contentDescription="@string/cancel"/>
+
+            <Button
+                android:layout_width="156dp"
+                android:layout_height="45dp"
+                android:layout_gravity="bottom"
+                android:id="@+id/save_button"
+                android:text="@string/save"
+                android:contentDescription="@string/save"/>
         </LinearLayout>
 </LinearLayout>
 </FrameLayout>
