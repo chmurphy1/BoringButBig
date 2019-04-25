@@ -15,13 +15,15 @@
         android:elevation="@dimen/card_elevation"
         android:layout_marginTop="@dimen/card_margin"
         android:layout_marginEnd="@dimen/card_margin"
-        android:layout_marginStart="@dimen/card_margin">
+        android:layout_marginStart="@dimen/card_margin"
+        android:focusable="true">
 
         <TextView
             android:id="@+id/WorkoutName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:theme="@style/BigButBoringTheme.Text.CardView"/>
+            android:theme="@style/BigButBoringTheme.Text.CardView"
+            android:contentDescription="@string/workout_plan_name"/>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

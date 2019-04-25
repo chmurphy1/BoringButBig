@@ -25,6 +25,7 @@
             android:id="@+id/optional"
             android:layout_marginStart="@dimen/optional_textview_indent"
             android:visibility="invisible"
-            android:textAlignment="viewStart"/>
+            android:textAlignment="viewStart"
+            android:contentDescription="@string/optional"/>
     </LinearLayout>
 </FrameLayout>

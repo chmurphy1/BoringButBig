@@ -31,7 +31,8 @@
                 android:visibility="invisible"
                 android:theme="@style/BigButBoringTheme.Text.Base"
                 android:layout_gravity="start"
-                android:textAlignment="viewStart"/>
+                android:textAlignment="viewStart"
+                android:contentDescription="@string/optional"/>
         </LinearLayout>
 
         <TextView
@@ -44,7 +45,8 @@
             android:theme="@style/BigButBoringTheme.Text.Base"
             android:visibility="invisible"
             android:textSize="16sp"
-            android:lineSpacingExtra="@dimen/line_space"/>
+            android:lineSpacingExtra="@dimen/line_space"
+            android:contentDescription="@string/no_workout_msg"/>
 
         <Button
             android:layout_width="match_parent"
@@ -54,6 +56,7 @@
             android:layout_gravity="bottom"
             android:visibility="gone"
             android:layout_margin="@dimen/button_margins"
-            android:elevation="@dimen/elevation"/>
+            android:elevation="@dimen/elevation"
+            android:contentDescription="@string/complete"/>
     </FrameLayout>
 </FrameLayout>

@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/historyRow"
-    android:theme="@style/BigButBoringTheme.TableRow">
+    android:theme="@style/BigButBoringTheme.TableRow"
+    android:focusable="true">
 
     <TextView
         android:layout_width="match_parent"
@@ -13,7 +14,8 @@
         android:layout_weight="1"
         android:gravity="bottom"
         android:paddingBottom="4dp"
-        android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
+        android:theme="@style/BigButBoringTheme.Text.Table.Body"
+        android:contentDescription="@string/exercise_name"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -22,7 +24,8 @@
         android:layout_weight="1"
         android:gravity="bottom"
         android:paddingBottom="4dp"
-        android:theme="@style/BigButBoringTheme.Text.Table.Body"/>
+        android:theme="@style/BigButBoringTheme.Text.Table.Body"
+        android:contentDescription="@string/rep_scheme"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -30,7 +33,8 @@
         android:id="@+id/weight"
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.EditText.Table.Body"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:hint="@string/perscribed_weight"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -40,5 +44,6 @@
         android:theme="@style/BigButBoringTheme.Text.Table.Body"
         android:gravity="bottom"
         android:paddingBottom="4dp"
-        android:text="@string/lbs"/>
+        android:text="@string/lbs"
+        android:contentDescription="@string/units"/>
 </TableRow>

@@ -17,7 +17,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:focusable="true">
             <TextView
                 android:id="@+id/ExerciseName"
                 android:layout_width="180dp"
@@ -26,8 +27,10 @@
                 android:textSize="14sp"
                 android:paddingBottom="4dp"
                 android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:paddingTop="11dp"
-                android:textAlignment="viewStart"/>
+                android:textAlignment="viewStart"
+                android:contentDescription="@string/exercise_name"/>
             <EditText
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
@@ -36,19 +39,22 @@
                 android:focusable="true"
                 android:theme="@style/BigButBoringTheme.EditText.Table.Body"
                 android:textSize="14sp"
-                android:textAlignment="viewStart"/>
+                android:textAlignment="viewStart"
+                android:hint="@string/exercise_max"/>
 
             <TextView
                 android:id="@+id/units"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/lbs"
                 android:paddingTop="11dp"
                 android:textAlignment="viewStart"
                 android:textSize="14sp"
-                android:theme="@style/BigButBoringTheme.TextView" />
+                android:theme="@style/BigButBoringTheme.TextView"
+                android:contentDescription="@string/units"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

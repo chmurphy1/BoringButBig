@@ -22,7 +22,8 @@
             android:layout_height="20dp"
             android:theme="@style/BigButBoringTheme.TextView"
             android:layout_marginStart="@dimen/textview_margin"
-            android:textAlignment="viewStart"/>
+            android:textAlignment="viewStart"
+            android:contentDescription="@string/optional"/>
 
         <Button
             android:id="@+id/createWorkoutButton"
@@ -31,6 +32,7 @@
             android:text="@string/my_workout"
             android:layout_gravity="bottom"
             android:layout_margin="@dimen/button_margins"
-            android:elevation="@dimen/elevation"/>
+            android:elevation="@dimen/elevation"
+            android:contentDescription="@string/my_workout"/>
     </FrameLayout>
 </FrameLayout>

@@ -20,7 +20,8 @@
             android:id="@+id/widget_button"
             android:text="@string/record_workout"
             android:layout_weight="1"
-            android:elevation="@dimen/elevation"/>
+            android:elevation="@dimen/elevation"
+            android:contentDescription="@string/record_workout"/>
     </LinearLayout>
     <TextView
         android:id="@+id/appwidget_text"
@@ -34,6 +35,7 @@
         android:textSize="20sp"
         android:textStyle="italic"
         android:visibility="gone"
-        android:theme="@style/BigButBoringTheme.TextView.Widget"/>
+        android:theme="@style/BigButBoringTheme.TextView.Widget"
+        android:contentDescription="@string/no_workout_msg"/>
 
 </RelativeLayout>

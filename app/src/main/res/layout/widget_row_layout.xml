@@ -11,7 +11,8 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.TextView.Widget"
-        android:padding="4dp"/>
+        android:padding="4dp"
+        android:contentDescription="@string/exercise_name"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,7 +20,8 @@
         android:id="@+id/widget_reps"
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.TextView.Widget"
-        android:padding="4dp"/>
+        android:padding="4dp"
+        android:contentDescription="@string/rep_scheme"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -27,5 +29,6 @@
         android:id="@+id/widget_weight"
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.TextView.Widget"
-        android:padding="4dp"/>
+        android:padding="4dp"
+        android:contentDescription="@string/perscribed_weight"/>
 </LinearLayout>

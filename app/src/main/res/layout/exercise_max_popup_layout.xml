@@ -29,7 +29,8 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:text="@string/popup_message"
-            android:padding="4dp"/>
+            android:padding="4dp"
+            android:contentDescription="@string/popup_message"/>
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -47,14 +48,16 @@
                 android:layout_height="45dp"
                 android:layout_gravity="bottom"
                 android:id="@+id/save_button"
-                android:text="@string/save"/>
+                android:text="@string/save"
+                android:contentDescription="@string/save"/>
 
             <Button
                 android:layout_width="156dp"
                 android:layout_height="45dp"
                 android:layout_gravity="bottom"
                 android:id="@+id/cancel_button"
-                android:text="@string/cancel"/>
+                android:text="@string/cancel"
+                android:contentDescription="@string/cancel"/>
         </LinearLayout>
 </LinearLayout>
 </FrameLayout>
