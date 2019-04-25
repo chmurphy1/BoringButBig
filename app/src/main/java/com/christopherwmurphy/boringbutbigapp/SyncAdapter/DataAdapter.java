@@ -38,6 +38,16 @@ import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+/*
+ * I used the following source to help me with the sync adapter
+ *
+ * https://developer.android.com/training/sync-adapters
+ * https://developer.android.com/training/sync-adapters/creating-authenticator
+ * https://developer.android.com/training/sync-adapters/creating-stub-provider
+ * https://developer.android.com/training/sync-adapters/creating-sync-adapter
+ * https://developer.android.com/training/sync-adapters/running-sync-adapter
+ */
+
 public class DataAdapter extends AbstractThreadedSyncAdapter {
 
     private ContentResolver contentResolver;
