@@ -48,9 +48,11 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder {
     public void onFocusChanged(boolean focused){
         if(focused) {
             card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
+            exerciseName.setTextColor(context.getResources().getColor(R.color.white, null));
         }
         else{
             card.setCardBackgroundColor(context.getResources().getColor(R.color.white, null));
+            exerciseName.setTextColor(context.getResources().getColor(R.color.black, null));
         }
     }
 }

@@ -54,9 +54,11 @@ public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
     public void onFocusChanged(boolean focused){
         if(focused) {
             card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
+            workoutDate.setTextColor(context.getResources().getColor(R.color.white, null));
         }
         else{
             card.setCardBackgroundColor(context.getResources().getColor(R.color.white, null));
+            workoutDate.setTextColor(context.getResources().getColor(R.color.black, null));
         }
     }
 }

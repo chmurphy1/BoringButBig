@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutCallback;
-import com.christopherwmurphy.boringbutbigapp.Callbacks.WorkoutOnFocusCallback;
 import com.christopherwmurphy.boringbutbigapp.R;
 import com.christopherwmurphy.boringbutbigapp.database.Entity.WorkoutEntity;
 
@@ -51,9 +50,11 @@ public class WorkoutViewHolder extends RecyclerView.ViewHolder {
     public void onFocusChanged(boolean focused){
         if(focused) {
             card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
+            workoutName.setTextColor(context.getResources().getColor(R.color.white, null));
         }
         else{
             card.setCardBackgroundColor(context.getResources().getColor(R.color.white, null));
+            workoutName.setTextColor(context.getResources().getColor(R.color.black, null));
         }
     }
 }
