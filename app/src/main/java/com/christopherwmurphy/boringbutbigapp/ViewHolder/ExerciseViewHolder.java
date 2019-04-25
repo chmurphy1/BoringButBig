@@ -1,6 +1,7 @@
 package com.christopherwmurphy.boringbutbigapp.ViewHolder;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.christopherwmurphy.boringbutbigapp.database.Entity.ExerciseEntity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class ExerciseViewHolder extends RecyclerView.ViewHolder {
 
@@ -21,6 +23,9 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder {
 
    @BindView(R.id.exerciseName)
    TextView exerciseName;
+
+    @BindView(R.id.ExerciseCard)
+    CardView card;
 
     public ExerciseViewHolder(View itemView, ExerciseCallback callback) {
         super(itemView);
@@ -37,5 +42,15 @@ public class ExerciseViewHolder extends RecyclerView.ViewHolder {
     @OnClick(R.id.ExerciseCard)
     public void onClick(){
         exListener.callback(exercise.getId(), exercise.getVideoId());
+    }
+
+    @OnFocusChange(R.id.ExerciseCard)
+    public void onFocusChanged(boolean focused){
+        if(focused) {
+            card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
+        }
+        else{
+            card.setCardBackgroundColor(context.getResources().getColor(R.color.white, null));
+        }
     }
 }

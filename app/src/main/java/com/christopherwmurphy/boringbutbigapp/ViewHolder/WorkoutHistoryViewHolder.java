@@ -1,6 +1,7 @@
 package com.christopherwmurphy.boringbutbigapp.ViewHolder;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import java.text.SimpleDateFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnFocusChange;
 
 public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
 
@@ -25,6 +27,9 @@ public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
 
     @BindView(R.id.date)
     TextView workoutDate;
+
+    @BindView(R.id.WorkoutHistoryCard)
+    CardView card;
 
     public WorkoutHistoryViewHolder(View itemView, WorkoutHistoryCallback callback) {
         super(itemView);
@@ -42,5 +47,16 @@ public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
     @OnClick(R.id.WorkoutHistoryCard)
     public void onClick(){
         wListener.callback(workout.getDate());
+    }
+
+
+    @OnFocusChange(R.id.ExerciseCard)
+    public void onFocusChanged(boolean focused){
+        if(focused) {
+            card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
+        }
+        else{
+            card.setCardBackgroundColor(context.getResources().getColor(R.color.white, null));
+        }
     }
 }
