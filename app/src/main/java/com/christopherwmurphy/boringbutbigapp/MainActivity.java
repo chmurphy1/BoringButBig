@@ -172,15 +172,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     }
 
     public void startDataAdapter(){
-        Bundle lang = new Bundle();
-        lang.putString(this.getResources().getString(R.string.language),
-                       this.getResources().getString(R.string.english));
-
         ContentResolver.setSyncAutomatically(mAccount, this.getResources().getString(R.string.authority), true);
-
-        ContentResolver.requestSync(mAccount,
-                this.getResources().getString(R.string.authority),
-                lang);
+        ContentResolver.requestSync(mAccount,this.getResources().getString(R.string.authority),Bundle.EMPTY);
+        ContentResolver.addPeriodicSync(mAccount, this.getResources().getString(R.string.authority),Bundle.EMPTY, 3600);
     }
 
     public static Account CreateSyncAccount(Context context){
