@@ -41,7 +41,7 @@
     <string name="exercise_max">Max weight for exercise</string>
     <string name="units">units of measure</string>
     <string name="rep_scheme">number of sets and number of repetitions</string>
-    <string name="perscribed_weight">amount of weight for exercise</string>
+    <string name="perscribed_weight">weight</string>
     <string name="date_of_workout">date of workout</string>
     <string name="workout_plan_name">name of workout plan</string>
 </resources>

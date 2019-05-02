@@ -50,7 +50,7 @@ public class WorkoutHistoryViewHolder  extends RecyclerView.ViewHolder {
     }
 
 
-    @OnFocusChange(R.id.ExerciseCard)
+    @OnFocusChange(R.id.WorkoutHistoryCard)
     public void onFocusChanged(boolean focused){
         if(focused) {
             card.setCardBackgroundColor(context.getResources().getColor(R.color.colorAccent, null));
