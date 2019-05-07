@@ -19,7 +19,7 @@ public interface WorkoutHistoryDao {
     @Query("select * from workout_history")
     LiveData<List<WorkoutHistoryEntity>> getAllWorkouts();
 
-    @Query("select * from workout_history Group by date")
+    @Query("select * from workout_history Group by date order by date desc")
     LiveData<List<WorkoutHistoryEntity>> getAllWorkoutsGroupByTimestamp();
 
     @Query("select * from workout_history p join exercise e on (p.exercise_id = e.id) " +
