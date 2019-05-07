@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:theme="@style/BigButBoringTheme.Text.Table.Body"
         android:gravity="end"
-        android:hint="@string/perscribed_weight"/>
+        android:contentDescription="@string/perscribed_weight"/>
 
     <TextView
         android:layout_width="match_parent"
