@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
     NavigationView navigationView;
 
     private Fragment fragment = null;
+    private static boolean adapterFlag = false;
 
     private CallbackFromWorkout wCallback = new CallbackFromWorkout() {
         @Override
@@ -74,9 +75,11 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        mResolver = getContentResolver();
-        mAccount = CreateSyncAccount(this);
-        startDataAdapter();
+        if(!adapterFlag) {
+            mResolver = getContentResolver();
+            mAccount = CreateSyncAccount(this);
+            startDataAdapter();
+        }
         startNavView();
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
@@ -175,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.Home
         ContentResolver.setSyncAutomatically(mAccount, this.getResources().getString(R.string.authority), true);
         ContentResolver.requestSync(mAccount,this.getResources().getString(R.string.authority),Bundle.EMPTY);
         ContentResolver.addPeriodicSync(mAccount, this.getResources().getString(R.string.authority),Bundle.EMPTY, 3600);
+        adapterFlag = true;
     }
 
     public static Account CreateSyncAccount(Context context){
